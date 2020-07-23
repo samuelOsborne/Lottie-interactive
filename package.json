@@ -1,0 +1,25 @@
+{
+
+  "name": "lottie-interactive",
+  "version": "1.0.0",
+  "description": "A custom element that adds interactions and quality of life changes to Lottie animations.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samuelOsborne/Lottie-interactive.git"
+  },
+  "keywords": [
+    "lottie",
+    "icons",
+    "animations"
+  ],
+  "author": "Samuel Osborne <sam@svgenius.co> (https://svgenius.co)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/samuelOsborne/Lottie-interactive/issues"
+  },
+  "homepage": "https://github.com/samuelOsborne/Lottie-interactive#readme"
+}
