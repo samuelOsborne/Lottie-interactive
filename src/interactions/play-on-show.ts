@@ -2,23 +2,27 @@ import {LottiePlayer} from "Lottie-web";
 import {BaseInteraction} from "./base-interaction";
 import {InteractionType} from "./interaction-type";
 
-export class Hover extends BaseInteraction {
+export class PlayOnShow extends BaseInteraction {
     constructor(player: LottiePlayer, element: HTMLElement) {
         super(player, element);
 
-        this.interactionType = InteractionType.Hover;
+        this.interactionType = InteractionType.PlayOnShow;
         this.initListener();
     }
 
     private initListener() {
-        this.element.addEventListener('mouseenter', this.playOnHover.bind(this));
+        var observer = new IntersectionObserver(this.detectIfShowing.bind(this), { threshold: [1] });
+        observer.observe(this.element);
     }
 
-    private removeListener() {
-        this.element.removeEventListener('mouseenter', this.playOnHover.bind(this));
+    private detectIfShowing(entries : IntersectionObserverEntry[]) {
+        if(entries[0].isIntersecting === true) {
+            this.playOnShow();
+            console.log('Element is fully visible in screen');
+        }
     }
 
-    public playOnHover() {
+    public playOnShow() {
         if (!this.playing && this.active)
         {
             this.playing = true;

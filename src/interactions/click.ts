@@ -1,18 +1,28 @@
-import { LottiePlayer } from "Lottie-web";
-import { BaseInteraction } from "./base-interaction";
+import {LottiePlayer} from "Lottie-web";
+import {BaseInteraction} from "./base-interaction";
+import {InteractionType} from "./interaction-type";
 
-export class OnClick extends BaseInteraction {
-    constructor(player: LottiePlayer) {
-        super(player);
-        this.playing = false;
+export class Click extends BaseInteraction {
+    constructor(player: LottiePlayer, element: HTMLElement) {
+        super(player, element);
+
+        this.interactionType = InteractionType.Click;
+        this.initListener();
+    }
+
+    private initListener() {
+        this.element.addEventListener('click', this.playOnClick.bind(this));
+    }
+
+    private removeListener() {
+        this.element.removeEventListener('click', this.playOnClick.bind(this));
     }
 
     public playOnClick() {
-        if (!this.playing)
+        if (!this.playing && this.active)
         {
             this.playing = true;
             this.lottiePlayer.setDirection(1);
-            console.log("PLAYING ANIMATION");
             this.lottiePlayer.goToAndPlay(0, true);
         }
     }

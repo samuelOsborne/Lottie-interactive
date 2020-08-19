@@ -2,27 +2,25 @@ import {LottiePlayer} from "Lottie-web";
 import {BaseInteraction} from "./base-interaction";
 import {InteractionType} from "./interaction-type";
 
-export class Morph extends BaseInteraction {
+export class Switch extends BaseInteraction {
     private direction: number = -1;
 
     constructor(player: LottiePlayer, element: HTMLElement) {
         super(player, element);
 
-        this.interactionType = InteractionType.Morph;
+        this.interactionType = InteractionType.Switch;
         this.initListener();
     }
 
     private initListener() {
-        this.element.addEventListener('mouseenter', this.playOnHover.bind(this));
-        this.element.addEventListener('mouseleave', this.playOnHover.bind(this));
+        this.element.addEventListener('click', this.playOnClick.bind(this));
     }
 
     private removeListener() {
-        this.element.removeEventListener('mouseenter', this.playOnHover.bind(this));
-        this.element.removeEventListener('mouseleave', this.playOnHover.bind(this));
+        this.element.removeEventListener('click', this.playOnClick.bind(this));
     }
 
-    public playOnHover() {
+    public playOnClick() {
         if (this.active)
         {
             if (this.direction === -1)
@@ -38,4 +36,5 @@ export class Morph extends BaseInteraction {
                 this.lottiePlayer.play();
             }
         }
-    }}
+    }
+}

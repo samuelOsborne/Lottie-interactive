@@ -1,10 +1,12 @@
-import { LottiePlayer } from "Lottie-web";
-import { BaseInteraction } from "./base-interaction";
+import {LottiePlayer} from "Lottie-web";
+import {BaseInteraction} from "./base-interaction";
+import {InteractionType} from "./interaction-type";
 
-export class OnLoop extends BaseInteraction {
-    constructor(player: LottiePlayer) {
-        super(player);
-        this.playing = false;
+export class Loop extends BaseInteraction {
+    constructor(player: LottiePlayer, element: HTMLElement) {
+        super(player, element);
+
+        this.interactionType = InteractionType.Loop;
     }
 
     public playOnLoop() {
