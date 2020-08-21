@@ -17,25 +17,33 @@ export class Morph extends BaseInteraction {
         this.element.addEventListener('mouseleave', this.playOnHover.bind(this));
     }
 
-    private removeListener() {
+    public removeListener() {
         this.element.removeEventListener('mouseenter', this.playOnHover.bind(this));
         this.element.removeEventListener('mouseleave', this.playOnHover.bind(this));
     }
 
-    public playOnHover() {
-        if (this.active)
+    private playMorphedAnimation() {
+        if (this.direction === -1)
         {
-            if (this.direction === -1)
-            {
-                this.direction = 1;
-                this.playing = true;
-                this.lottiePlayer.setDirection(this.direction);
-                this.lottiePlayer.goToAndPlay(0, true);
-            } else if (this.direction === 1) {
-                this.direction = -1;
-                this.playing = true;
-                this.lottiePlayer.setDirection(this.direction);
-                this.lottiePlayer.play();
+            this.direction = 1;
+            this.playing = true;
+            this.lottiePlayer.setDirection(this.direction);
+            this.lottiePlayer.goToAndPlay(0, true);
+        } else if (this.direction === 1) {
+            this.direction = -1;
+            this.playing = true;
+            this.lottiePlayer.setDirection(this.direction);
+            this.lottiePlayer.play();
+        }
+    }
+
+    public playOnHover() {
+        if (this.active && this.ready) {
+            if (this.playOnce && !this.played) {
+                this.playMorphedAnimation();
+                this.played = true;
+            } else if (!this.playOnce) {
+                this.playMorphedAnimation();
             }
         }
     }}

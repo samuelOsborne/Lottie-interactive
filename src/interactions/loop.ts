@@ -3,6 +3,8 @@ import {BaseInteraction} from "./base-interaction";
 import {InteractionType} from "./interaction-type";
 
 export class Loop extends BaseInteraction {
+    removeListener(): void {
+    }
     constructor(player: LottiePlayer, element: HTMLElement) {
         super(player, element);
 

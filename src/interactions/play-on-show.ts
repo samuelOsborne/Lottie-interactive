@@ -17,17 +17,11 @@ export class PlayOnShow extends BaseInteraction {
 
     private detectIfShowing(entries : IntersectionObserverEntry[]) {
         if(entries[0].isIntersecting === true) {
-            this.playOnShow();
+            this.playAnimation();
             console.log('Element is fully visible in screen');
         }
     }
 
-    public playOnShow() {
-        if (!this.playing && this.active)
-        {
-            this.playing = true;
-            this.lottiePlayer.setDirection(1);
-            this.lottiePlayer.goToAndPlay(0, true);
-        }
+    public removeListener() {
     }
 }

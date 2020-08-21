@@ -11,19 +11,10 @@ export class Click extends BaseInteraction {
     }
 
     private initListener() {
-        this.element.addEventListener('click', this.playOnClick.bind(this));
+        this.element.addEventListener('click', this.playAnimation.bind(this));
     }
 
-    private removeListener() {
-        this.element.removeEventListener('click', this.playOnClick.bind(this));
-    }
-
-    public playOnClick() {
-        if (!this.playing && this.active)
-        {
-            this.playing = true;
-            this.lottiePlayer.setDirection(1);
-            this.lottiePlayer.goToAndPlay(0, true);
-        }
+    public removeListener() {
+        this.element.removeEventListener('click', this.playAnimation.bind(this));
     }
 }

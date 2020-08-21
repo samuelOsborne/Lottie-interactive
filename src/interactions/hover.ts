@@ -11,19 +11,10 @@ export class Hover extends BaseInteraction {
     }
 
     private initListener() {
-        this.element.addEventListener('mouseenter', this.playOnHover.bind(this));
+        this.element.addEventListener('mouseenter', this.playAnimation.bind(this));
     }
 
-    private removeListener() {
-        this.element.removeEventListener('mouseenter', this.playOnHover.bind(this));
-    }
-
-    public playOnHover() {
-        if (!this.playing && this.active)
-        {
-            this.playing = true;
-            this.lottiePlayer.setDirection(1);
-            this.lottiePlayer.goToAndPlay(0, true);
-        }
+    public removeListener() {
+        this.element.removeEventListener('mouseenter', this.playAnimation.bind(this));
     }
 }
