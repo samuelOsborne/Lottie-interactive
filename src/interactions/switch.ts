@@ -44,7 +44,6 @@ export class Switch extends BaseInteraction {
             } else if (!this.playOnce) {
                 this.playSwitchAnimation();
             }
-
         }
     }
 }

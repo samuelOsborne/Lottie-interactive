@@ -56,7 +56,7 @@ class LottieInteractive extends HTMLElement {
             if (this.interactions[i].interactionType === this.interaction) {
                 this.interactions[i].active = true;
                 this.interactions[i].reset = this.reset;
-                this.interactions[i].playOnce = true;
+                this.interactions[i].playOnce = this.playOnce;
             }
         }
     }
@@ -67,7 +67,7 @@ class LottieInteractive extends HTMLElement {
         this.path = this.getAttribute('path');
         this.interaction = this.getAttribute('interaction');
 
-        if (this.getAttribute('playOnce') === 'true') {
+        if (this.getAttribute('play-once') === 'true') {
             this.playOnce = true;
         }
         if (this.getAttribute('reset') === 'true') {

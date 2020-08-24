@@ -29,8 +29,6 @@ export abstract class BaseInteraction {
             this.active &&
             this.ready)
         {
-            console.log("This played:  " + this.played);
-
             if (this.playOnce && !this.played) {
                 this.playing = true;
                 this.lottiePlayer.setDirection(1);
@@ -59,7 +57,6 @@ export abstract class BaseInteraction {
         if (this.lottiePlayer !== null) {
             this.lottiePlayer.addEventListener("data_ready", ()=> {
                 this.ready = true;
-                console.log("DATA READY");
             });
         }
     }

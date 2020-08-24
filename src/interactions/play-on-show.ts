@@ -18,7 +18,6 @@ export class PlayOnShow extends BaseInteraction {
     private detectIfShowing(entries : IntersectionObserverEntry[]) {
         if(entries[0].isIntersecting === true) {
             this.playAnimation();
-            console.log('Element is fully visible in screen');
         }
     }
 
