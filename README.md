@@ -1,4 +1,7 @@
+![alt Lottie-interactive](https://github.com/samuelOsborne/Lottie-interactive/blob/master/lottie-interactive.png?raw=true)
+
 # Lottie-interactive
+
 Lottie interactive is custom web element adding multiple types of interactivity to Lottie animations.
 
 ## Installation
