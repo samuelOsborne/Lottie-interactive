@@ -13,9 +13,9 @@ npm install lottie-interactive
 ```
 
 ## Usage
-
+From javascript module:
 ```javascript
-import { lottie-interactive } from 'lottie-interactive'
+import { LottieInteractive } from 'lottie-interactive'
 ```
 
 Usage in markup:
@@ -99,10 +99,16 @@ Define aspect ratio, default value is 'xMidYMid slice', more information [here](
 <lottie-interactive path="button.json" aspect-ratio='xMidYMid meet'></lottie-interactive>
 ```
 
-### Browser compatibilty
+### Usage notice
+
+#### Browser compatibility
 
 Currently this library is usable on modern browsers supporting **Web components** and **Lottie**.
 
+
+#### Bundlers
+
+We recommend using this library with a module bundler such as **webpack**.
 
 ### Upcoming features
 
