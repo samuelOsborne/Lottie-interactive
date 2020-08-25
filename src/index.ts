@@ -20,12 +20,12 @@ const styling = `
   }
 `;
 
-class LottieInteractive extends HTMLElement {
+export class LottieInteractive extends HTMLElement {
     public path: string;
     public lottie: LottiePlayer;
 
     private playOnce: boolean = false;
-    private interaction: String;
+    private interaction: string;
     private loop: boolean = false;
     private autoplay: boolean = false;
     private reset: boolean = false;
@@ -42,9 +42,8 @@ class LottieInteractive extends HTMLElement {
         this.checkAttributes();
         this.loadAnimation(this.path, this.animationContainer);
         this.initInteractions();
-    };
+    }
 
-    // Add interactions to an array
     private initInteractions() {
         this.interactions.push(new Hover(this.lottie, this.animationContainer));
         this.interactions.push(new Click(this.lottie, this.animationContainer));
@@ -61,8 +60,6 @@ class LottieInteractive extends HTMLElement {
         }
     }
 
-    // Create a map of attributes and their expected values
-    // Check in loop
     private checkAttributes() {
         this.path = this.getAttribute('path');
         this.interaction = this.getAttribute('interaction');
@@ -91,17 +88,15 @@ class LottieInteractive extends HTMLElement {
         shadowRoot.appendChild(this.animationContainer);
     }
 
-    loadAnimation(path: string, container: Element) {
+    private loadAnimation(path: string, container: Element) {
         this.lottie = Lottie.loadAnimation({
-            container: container, // the dom element that will contain the animation
+            container: container,
             renderer: 'svg',
             loop: this.loop,
             autoplay: this.autoplay,
-            path: path // the path to the animation json
+            path: path
         });
     }
 }
 
 customElements.define('lottie-interactive', LottieInteractive);
-
-export default LottieInteractive;

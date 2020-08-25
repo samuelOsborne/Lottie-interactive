@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Title</title>
-	<script type="module" src="../../build/bundle.js"></script>
+	<script type="module" src="../../build/lottie-interactive.js"></script>
 	<link rel="stylesheet" type="text/css" href="./all.css">
 </head>
 <body>
@@ -38,7 +38,7 @@
 	</div>
 	<div class="animation-container">
 		<lottie-interactive path="../animations/right-arrow.json"
-							interaction="loop"
+							loop="true"
 							autoplay="true">
 		</lottie-interactive>
 		<div class="title">
@@ -97,13 +97,12 @@
 	</div>
 	<div class="animation-container">
 		<lottie-interactive path="../animations/lottie-logo.json"
-							interaction="loop"
+                            loop="true"
 							play-once="true"
-							autoplay="true"
-							reset="true">
+							autoplay="true">
 		</lottie-interactive>
 		<div class="title">
-			Loop
+			Loop (overrides play-once)
 		</div>
 	</div>
 	<div class="animation-container">
@@ -162,8 +161,7 @@
 	</div>
 	<div class="animation-container">
 		<lottie-interactive path="../animations/lottie-logo.json"
-							interaction="loop"
-							play-once="true"
+							loop="true"
 							autoplay="true"
 							reset="true">
 		</lottie-interactive>
@@ -193,7 +191,7 @@
 
 <div class="row">
 	<h1>
-		Reset
+		Reset = true
 	</h1>
 	<div class="animation-container watermelon-background">
 		<lottie-interactive path="../animations/lottie-logo.json"
@@ -226,17 +224,6 @@
 	</div>
 	<div class="animation-container watermelon-background">
 		<lottie-interactive path="../animations/lottie-logo.json"
-							interaction="loop"
-							play-once="true"
-							autoplay="true"
-							reset="true">
-		</lottie-interactive>
-		<div class="title">
-			Loop
-		</div>
-	</div>
-	<div class="animation-container watermelon-background">
-		<lottie-interactive path="../animations/lottie-logo.json"
 							interaction="morph"
 							reset="true">
 		</lottie-interactive>
@@ -253,6 +240,70 @@
 			Switch
 		</div>
 	</div>
+</div>
+
+<div class="row">
+  <h1>
+    Reset = false
+  </h1>
+  <div class="animation-container watermelon-background">
+    <lottie-interactive path="../animations/lottie-logo.json"
+                        autoplay="true"
+                        reset="false">
+    </lottie-interactive>
+    <div class="title">
+      Autoplay
+    </div>
+  </div>
+  <div class="animation-container watermelon-background">
+    <lottie-interactive path="../animations/lottie-logo.json"
+                        interaction="click"
+                        reset="false"
+                        autoplay="true">
+    </lottie-interactive>
+    <div class="title">
+      Click
+    </div>
+  </div>
+  <div class="animation-container watermelon-background">
+    <lottie-interactive path="../animations/lottie-logo.json"
+                        interaction="hover"
+                        reset="false"
+                        autoplay="true">
+    </lottie-interactive>
+    <div class="title">
+      Hover
+    </div>
+  </div>
+  <div class="animation-container watermelon-background">
+    <lottie-interactive path="../animations/lottie-logo.json"
+                        loop="true"
+                        play-once="true"
+                        autoplay="true"
+                        reset="false">
+    </lottie-interactive>
+    <div class="title">
+      Loop
+    </div>
+  </div>
+  <div class="animation-container watermelon-background">
+    <lottie-interactive path="../animations/lottie-logo.json"
+                        interaction="morph"
+                        reset="false">
+    </lottie-interactive>
+    <div class="title">
+      Morph
+    </div>
+  </div>
+  <div class="animation-container watermelon-background">
+    <lottie-interactive path="../animations/lottie-logo.json"
+                        interaction="switch"
+                        reset="false">
+    </lottie-interactive>
+    <div class="title">
+      Switch
+    </div>
+  </div>
 </div>
 <!--<div class="filler">-->
 <!--</div>-->

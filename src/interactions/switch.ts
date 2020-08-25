@@ -12,15 +12,15 @@ export class Switch extends BaseInteraction {
         this.initListener();
     }
 
-    private initListener() {
+    private initListener(): void {
         this.element.addEventListener('click', this.playOnClick.bind(this));
     }
 
-    public removeListener() {
+    public removeListener(): void {
         this.element.removeEventListener('click', this.playOnClick.bind(this));
     }
 
-    private playSwitchAnimation() {
+    private playSwitchAnimation(): void {
         if (this.direction === -1)
         {
             this.direction = 1;
@@ -35,7 +35,7 @@ export class Switch extends BaseInteraction {
         }
     }
 
-    public playOnClick() {
+    public playOnClick(): void {
         if (this.active && this.ready)
         {
             if (this.playOnce && !this.played) {

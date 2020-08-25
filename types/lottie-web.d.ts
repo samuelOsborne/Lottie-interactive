@@ -38,9 +38,9 @@ declare namespace Lottie {
          */
         destroy(): void;
 
-        addEventListener(eventName: string, callback: () => any): void;
+        addEventListener(eventName: string, callback: () => void): void;
 
-        removeEventListener(eventName: string, callback: () => any): void;
+        removeEventListener(eventName: string, callback: () => void): void;
     }
 
     export interface LottieOptions {
@@ -51,7 +51,7 @@ declare namespace Lottie {
         /**
          * The dom element on which to render the animation
          */
-        container?: any;
+        container?: Element;
         /**
          * Defines if the animation should play only once or repeatedly in an endless loop
          */
@@ -67,7 +67,7 @@ declare namespace Lottie {
         /**
          * The JSON data exported from Adobe After Effects using the Bodymovin plugin
          */
-        animationData?: any;
+        animationData?: JSON;
         /**
          * Set the renderer method
          */
@@ -80,8 +80,7 @@ declare namespace Lottie {
             /**
              * The canvas context
              */
-            context?: any;
-            scaleMode?: any;
+            context?: CanvasCompositing;
             clearCanvas?: boolean;
             /**
              * Loads DOM elements when needed. Might speed up initialization for large number of elements. Only with SVG renderer.
@@ -127,11 +126,11 @@ declare namespace Lottie {
     /**
      * You can register an element directly with registerAnimation. It must have the "data-animation-path" attribute pointing at the data.json url
      */
-    function registerAnimation(element: any, animationData?: any): void;
+    function registerAnimation(element: HTMLElement, animationData?: JSON): void;
     /**
      * Looks for elements with class "lottie"
      */
-    function searchAnimations(animationData?: any, standalone?: boolean, renderer?: string): void;
+    function searchAnimations(animationData?: JSON, standalone?: boolean, renderer?: string): void;
     /**
      * To destroy and release resources. The DOM element will be emptied.
      */

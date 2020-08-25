@@ -8,9 +8,9 @@ export abstract class BaseInteraction {
     protected ready: boolean = false;
     protected element: HTMLElement;
     public interactionType: InteractionType;
-    public active: Boolean = false;
-    public reset: Boolean = false;
-    public playOnce: Boolean = false;
+    public active: boolean = false;
+    public reset: boolean = false;
+    public playOnce: boolean = false;
 
     abstract removeListener(): void;
 
@@ -24,7 +24,7 @@ export abstract class BaseInteraction {
         this.registerDestroyListener();
     }
 
-    protected playAnimation() {
+    protected playAnimation(): void {
         if (!this.playing &&
             this.active &&
             this.ready)
@@ -42,7 +42,7 @@ export abstract class BaseInteraction {
         }
     }
 
-    private registerCompleteListener() {
+    private registerCompleteListener(): void {
         if (this.lottiePlayer !== null) {
             this.lottiePlayer.addEventListener("complete", ()=> {
                 this.playing = false;
@@ -53,7 +53,7 @@ export abstract class BaseInteraction {
         }
     }
 
-    private registerReadyListener() {
+    private registerReadyListener(): void {
         if (this.lottiePlayer !== null) {
             this.lottiePlayer.addEventListener("data_ready", ()=> {
                 this.ready = true;
@@ -61,7 +61,7 @@ export abstract class BaseInteraction {
         }
     }
 
-    private registerDestroyListener() {
+    private registerDestroyListener(): void {
         if (this.lottiePlayer !== null) {
             this.lottiePlayer.addEventListener("destroy", ()=> {
                 this.removeListener();

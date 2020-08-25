@@ -12,17 +12,17 @@ export class Morph extends BaseInteraction {
         this.initListener();
     }
 
-    private initListener() {
+    private initListener(): void {
         this.element.addEventListener('mouseenter', this.playOnHover.bind(this));
         this.element.addEventListener('mouseleave', this.playOnHover.bind(this));
     }
 
-    public removeListener() {
+    public removeListener(): void {
         this.element.removeEventListener('mouseenter', this.playOnHover.bind(this));
         this.element.removeEventListener('mouseleave', this.playOnHover.bind(this));
     }
 
-    private playMorphedAnimation() {
+    private playMorphedAnimation(): void {
         if (this.direction === -1)
         {
             this.direction = 1;
@@ -37,7 +37,7 @@ export class Morph extends BaseInteraction {
         }
     }
 
-    public playOnHover() {
+    public playOnHover(): void {
         if (this.active && this.ready) {
             if (this.playOnce && !this.played) {
                 this.playMorphedAnimation();

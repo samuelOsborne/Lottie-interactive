@@ -10,11 +10,11 @@ export class Click extends BaseInteraction {
         this.initListener();
     }
 
-    private initListener() {
+    private initListener(): void {
         this.element.addEventListener('click', this.playAnimation.bind(this));
     }
 
-    public removeListener() {
+    public removeListener(): void {
         this.element.removeEventListener('click', this.playAnimation.bind(this));
     }
 }

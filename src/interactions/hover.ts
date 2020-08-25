@@ -10,11 +10,11 @@ export class Hover extends BaseInteraction {
         this.initListener();
     }
 
-    private initListener() {
+    private initListener(): void {
         this.element.addEventListener('mouseenter', this.playAnimation.bind(this));
     }
 
-    public removeListener() {
+    public removeListener(): void {
         this.element.removeEventListener('mouseenter', this.playAnimation.bind(this));
     }
 }
