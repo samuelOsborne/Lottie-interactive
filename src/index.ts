@@ -65,16 +65,16 @@ export class LottieInteractive extends HTMLElement {
         this.path = this.getAttribute('path');
         this.interaction = this.getAttribute('interaction');
 
-        if (this.getAttribute('play-once') === 'true') {
+        if (this.hasAttribute('play-once')) {
             this.playOnce = true;
         }
-        if (this.getAttribute('reset') === 'true') {
+        if (this.hasAttribute('reset')) {
             this.reset = true;
         }
-        if (this.getAttribute('loop') === 'true') {
+        if (this.hasAttribute('loop')) {
             this.loop = true;
         }
-        if (this.getAttribute('autoplay') === 'true') {
+        if (this.hasAttribute('autoplay')) {
             this.autoplay = true;
         }
         if (this.hasAttribute('aspect-ratio')) {

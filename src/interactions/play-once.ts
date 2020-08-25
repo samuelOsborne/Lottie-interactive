@@ -12,5 +12,6 @@ export class PlayOnce extends BaseInteraction {
     }
 
     removeListener(): void {
+        return ;
     }
 }
