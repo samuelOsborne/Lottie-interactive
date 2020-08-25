@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Reset example</title>
+  <script type="module" src="../../build/lottie-interactive.js"></script>
+</head>
+
+<body>
+<div style="display: flex">
+  <div class="content-left">
+    <h1 style="text-align: center; font-family: 'Verdana', serif;">
+      Attribute: 'reset=true'
+    </h1>
+    <div style="text-align: center">
+      <lottie-interactive path="../animations/svgenius-logo.json"
+                          reset="true"
+                          interaction="play-once"
+                          autoplay="true">
+      </lottie-interactive>
+    </div>
+  </div>
+  <div class="content-right">
+    <h1 style="text-align: center; font-family: 'Verdana', serif;">
+      Attribute: 'reset=false'
+    </h1>
+    <div style="text-align: center">
+      <lottie-interactive path="../animations/svgenius-logo.json"
+                          reset="false"
+                          interaction="play-once"
+                          autoplay="true">
+      </lottie-interactive>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+
+<style>
+  .content-left {
+    float: left;
+    margin: auto;
+  }
+
+  .content-right {
+    float: right;
+    margin: auto;
+  }
+</style>

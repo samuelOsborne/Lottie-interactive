@@ -3,33 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <title>Morph example</title>
-
   <script type="module" src="../../build/lottie-interactive.js"></script>
-  <link rel="stylesheet" type="text/css" href="play-once.css">
 </head>
+
 <body>
-
-<div class="filler">
-  <h1>Scroll down!</h1>
-</div>
-
+<h1 class="center-content">
+  Interaction : 'Play-once'
+</h1>
 <div class="animation-container">
-  <lottie-interactive path="../animations/lottie-logo.json"
-                      interaction="play-on-show"
-                      reset="false"
-                      playOnce="true"
-  ></lottie-interactive>
-  <lottie-interactive path="../animations/credit-card-flash-fill-morph.json"
-                      interaction="morph"
-                      reset="false"
-                      playOnce="true"
-  ></lottie-interactive>
-  <lottie-interactive path="../animations/credit-card-flash-fill-morph.json"
-                      interaction="switch"
-                      reset="false"
-                      playOnce="true"
-  ></lottie-interactive>
+  <lottie-interactive path="../animations/lottie-interactive.json"
+                      interaction="play-once"
+                      autoplay="true">
+  </lottie-interactive>
 </div>
-
 </body>
 </html>
+
+<style>
+  h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Verdana", serif;
+    background-color: #ADFF9E;
+    margin: 0;
+    color: white;
+  }
+
+  .animation-container {
+    width: 100%;
+    height: 100%;
+    background-color: #ADFF9E;
+    text-align: center;
+  }
+</style>

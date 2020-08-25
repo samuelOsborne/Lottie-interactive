@@ -3,5 +3,6 @@ export enum InteractionType {
     Click = "click",
     Morph = "morph",
     PlayOnShow = "play-on-show",
+    PlayOnce = "play-once",
     Switch = "switch"
 }

@@ -3,22 +3,49 @@
 <head>
   <meta charset="UTF-8">
   <title>Morph example</title>
-
   <script type="module" src="../../build/lottie-interactive.js"></script>
-  <link rel="stylesheet" type="text/css" href="./play-on-show.css">
 </head>
-<body>
 
+<body>
+<h1>
+  Interaction: 'play-on-show'
+</h1>
 <div class="filler">
   <h1>Scroll down!</h1>
 </div>
-
 <div class="animation-container">
-  <lottie-interactive path="../animations/lottie-logo.json"
-                      interaction="play-on-show"
-                      reset="false"
-  ></lottie-interactive>
+  <lottie-interactive path="../animations/lottie-interactive.json"
+                      interaction="play-on-show">
+  </lottie-interactive>
 </div>
-
 </body>
 </html>
+
+<style>
+  h1 {
+    text-align: center;
+    font-family: 'Verdana', serif;
+    margin: 0;
+    background-color: palevioletred;
+    color: white;
+  }
+
+  .filler {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    background-color: palevioletred;
+    color: #ffffff;
+    text-align: center;
+    font-family: "Verdana", serif;
+  }
+
+  .animation-container {
+    width: 100%;
+    height: 100%;
+    background-color: #ADFF9E;
+    text-align: center;
+  }
+</style>

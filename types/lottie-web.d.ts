@@ -76,7 +76,7 @@ declare namespace Lottie {
          * Settings for existing canvas
          */
         rendererSettings?: {
-            preserveAspectRatio?: boolean;
+            preserveAspectRatio?: string;
             /**
              * The canvas context
              */

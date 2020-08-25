@@ -1,321 +1,380 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Title</title>
-	<script type="module" src="../../build/lottie-interactive.js"></script>
-	<link rel="stylesheet" type="text/css" href="./all.css">
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script type="module" src="../../build/lottie-interactive.js"></script>
+  <link rel="stylesheet" type="text/css" href="./all.css">
 </head>
 <body>
 
-<div class="row">
-	<h1>
-		Normal
-	</h1>
-	<div class="animation-container">
-		<lottie-interactive path="../animations/right-arrow.json"
-							autoplay="true">
-		</lottie-interactive>
-		<div class="title">
-			Autoplay
-		</div>
-	</div>
-	<div class="animation-container">
-		<lottie-interactive path="../animations/right-arrow.json"
-							interaction="click">
-		</lottie-interactive>
-		<div class="title">
-			Click
-		</div>
-	</div>
-	<div class="animation-container">
-		<lottie-interactive path="../animations/right-arrow.json"
-							interaction="hover">
-		</lottie-interactive>
-		<div class="title">
-			Hover
-		</div>
-	</div>
-	<div class="animation-container">
-		<lottie-interactive path="../animations/right-arrow.json"
-							loop="true"
-							autoplay="true">
-		</lottie-interactive>
-		<div class="title">
-			Loop
-		</div>
-	</div>
-	<div class="animation-container">
-		<lottie-interactive path="../animations/credit-card-flash-fill-morph.json"
-							interaction="morph">
-		</lottie-interactive>
-		<div class="title">
-			Morph
-		</div>
-	</div>
-	<div class="animation-container">
-		<lottie-interactive path="../animations/credit-card-flash-fill-morph.json"
-							interaction="switch">
-		</lottie-interactive>
-		<div class="title">
-			Switch
-		</div>
-	</div>
-</div>
-
-<div class="row">
-	<h1>
-		Play once
-	</h1>
-	<div class="animation-container">
-		<lottie-interactive path="../animations/right-arrow.json"
-							autoplay="true">
-		</lottie-interactive>
-		<div class="title">
-			Autoplay
-		</div>
-	</div>
-	<div class="animation-container">
-		<lottie-interactive path="../animations/right-arrow.json"
-							interaction="click"
-							reset="true"
-							play-once="true">
-		</lottie-interactive>
-		<div class="title">
-			Click
-		</div>
-	</div>
-	<div class="animation-container">
-		<lottie-interactive path="../animations/right-arrow.json"
-							interaction="hover"
-							reset="true"
-							play-once="true">
-		</lottie-interactive>
-		<div class="title">
-			Hover
-		</div>
-	</div>
-	<div class="animation-container">
-		<lottie-interactive path="../animations/lottie-logo.json"
-                            loop="true"
-							play-once="true"
-							autoplay="true">
-		</lottie-interactive>
-		<div class="title">
-			Loop (overrides play-once)
-		</div>
-	</div>
-	<div class="animation-container">
-		<lottie-interactive path="../animations/credit-card-flash-fill-morph.json"
-							interaction="morph"
-							reset="true"
-							play-once="true">
-		</lottie-interactive>
-		<div class="title">
-			Morph
-		</div>
-	</div>
-	<div class="animation-container">
-		<lottie-interactive path="../animations/credit-card-flash-fill-morph.json"
-							interaction="switch"
-							reset="true"
-							play-once="true">
-		</lottie-interactive>
-		<div class="title">
-			Switch
-		</div>
-	</div>
-</div>
-
-<div class="row">
-	<h1>
-		Autoplay
-	</h1>
-	<div class="animation-container">
-		<lottie-interactive path="../animations/right-arrow.json"
-							autoplay="true">
-		</lottie-interactive>
-		<div class="title">
-			Autoplay
-		</div>
-	</div>
-	<div class="animation-container">
-		<lottie-interactive path="../animations/right-arrow.json"
-							interaction="click"
-							reset="true"
-							autoplay="true">
-		</lottie-interactive>
-		<div class="title">
-			Click
-		</div>
-	</div>
-	<div class="animation-container">
-		<lottie-interactive path="../animations/right-arrow.json"
-							interaction="hover"
-							reset="true"
-							autoplay="true">
-		</lottie-interactive>
-		<div class="title">
-			Hover
-		</div>
-	</div>
-	<div class="animation-container">
-		<lottie-interactive path="../animations/lottie-logo.json"
-							loop="true"
-							autoplay="true"
-							reset="true">
-		</lottie-interactive>
-		<div class="title">
-			Loop
-		</div>
-	</div>
-	<div class="animation-container">
-		<lottie-interactive path="../animations/credit-card-flash-fill-morph.json"
-							interaction="morph"
-							autoplay="true">
-		</lottie-interactive>
-		<div class="title">
-			Morph
-		</div>
-	</div>
-	<div class="animation-container">
-		<lottie-interactive path="../animations/credit-card-flash-fill-morph.json"
-							interaction="switch"
-							autoplay="true">
-		</lottie-interactive>
-		<div class="title">
-			Switch
-		</div>
-	</div>
-</div>
-
-<div class="row">
-	<h1>
-		Reset = true
-	</h1>
-	<div class="animation-container watermelon-background">
-		<lottie-interactive path="../animations/lottie-logo.json"
-							autoplay="true"
-							reset="true">
-		</lottie-interactive>
-		<div class="title">
-			Autoplay
-		</div>
-	</div>
-	<div class="animation-container watermelon-background">
-		<lottie-interactive path="../animations/lottie-logo.json"
-							interaction="click"
-							reset="true"
-							autoplay="true">
-		</lottie-interactive>
-		<div class="title">
-			Click
-		</div>
-	</div>
-	<div class="animation-container watermelon-background">
-		<lottie-interactive path="../animations/lottie-logo.json"
-							interaction="hover"
-							reset="true"
-							autoplay="true">
-		</lottie-interactive>
-		<div class="title">
-			Hover
-		</div>
-	</div>
-	<div class="animation-container watermelon-background">
-		<lottie-interactive path="../animations/lottie-logo.json"
-							interaction="morph"
-							reset="true">
-		</lottie-interactive>
-		<div class="title">
-			Morph
-		</div>
-	</div>
-	<div class="animation-container watermelon-background">
-		<lottie-interactive path="../animations/lottie-logo.json"
-							interaction="switch"
-							reset="true">
-		</lottie-interactive>
-		<div class="title">
-			Switch
-		</div>
-	</div>
-</div>
-
-<div class="row">
+<div>
   <h1>
-    Reset = false
+    No attributes
   </h1>
-  <div class="animation-container watermelon-background">
-    <lottie-interactive path="../animations/lottie-logo.json"
-                        autoplay="true"
-                        reset="false">
-    </lottie-interactive>
-    <div class="title">
-      Autoplay
+  <div class="row">
+    <div class="animation-container">
+      <lottie-interactive path="../animations/right-arrow.json"
+                          autoplay="true">
+      </lottie-interactive>
+      <div class="title">
+        Autoplay
+      </div>
     </div>
-  </div>
-  <div class="animation-container watermelon-background">
-    <lottie-interactive path="../animations/lottie-logo.json"
-                        interaction="click"
-                        reset="false"
-                        autoplay="true">
-    </lottie-interactive>
-    <div class="title">
-      Click
+    <div class="animation-container">
+      <lottie-interactive path="../animations/right-arrow.json"
+                          interaction="click">
+      </lottie-interactive>
+      <div class="title">
+        Click
+      </div>
     </div>
-  </div>
-  <div class="animation-container watermelon-background">
-    <lottie-interactive path="../animations/lottie-logo.json"
-                        interaction="hover"
-                        reset="false"
-                        autoplay="true">
-    </lottie-interactive>
-    <div class="title">
-      Hover
+    <div class="animation-container">
+      <lottie-interactive path="../animations/right-arrow.json"
+                          interaction="hover">
+      </lottie-interactive>
+      <div class="title">
+        Hover
+      </div>
     </div>
-  </div>
-  <div class="animation-container watermelon-background">
-    <lottie-interactive path="../animations/lottie-logo.json"
-                        loop="true"
-                        play-once="true"
-                        autoplay="true"
-                        reset="false">
-    </lottie-interactive>
-    <div class="title">
-      Loop
+    <div class="animation-container">
+      <lottie-interactive path="../animations/svgenius-logo.json"
+                          loop="true"
+                          autoplay="false">
+      </lottie-interactive>
+      <div class="title">
+        Loop
+      </div>
     </div>
-  </div>
-  <div class="animation-container watermelon-background">
-    <lottie-interactive path="../animations/lottie-logo.json"
-                        interaction="morph"
-                        reset="false">
-    </lottie-interactive>
-    <div class="title">
-      Morph
+    <div class="animation-container">
+      <lottie-interactive path="../animations/sun-moon.json"
+                          interaction="morph">
+      </lottie-interactive>
+      <div class="title">
+        Morph
+      </div>
     </div>
-  </div>
-  <div class="animation-container watermelon-background">
-    <lottie-interactive path="../animations/lottie-logo.json"
-                        interaction="switch"
-                        reset="false">
-    </lottie-interactive>
-    <div class="title">
-      Switch
+    <div class="animation-container">
+      <lottie-interactive path="../animations/sun-moon.json"
+                          interaction="switch">
+      </lottie-interactive>
+      <div class="title">
+        Switch
+      </div>
+    </div>
+    <div class="animation-container">
+      <lottie-interactive path="../animations/right-arrow.json"
+                          interaction="play-once"
+                          autoplay="true">
+      </lottie-interactive>
+      <div class="title">
+        Play-once
+      </div>
     </div>
   </div>
 </div>
-<!--<div class="filler">-->
-<!--</div>-->
 
-<!--<div class="animation-container">-->
-<!--	<lottie-interactive path="../animations/lottie-logo.json"-->
-<!--						interaction="play-on-show"-->
-<!--						reset="false">-->
-<!--	</lottie-interactive>-->
-<!--	<div class="title">-->
-<!--		Play on show-->
-<!--	</div>-->
-<!--</div>-->
+<div>
+  <h1>
+    Attribute: 'play-once=true'
+  </h1>
+  <div class="row">
+    <div class="animation-container">
+      <lottie-interactive path="../animations/right-arrow.json"
+                          play-once="true"
+                          autoplay="true">
+      </lottie-interactive>
+      <div class="title">
+        Autoplay
+      </div>
+    </div>
+    <div class="animation-container">
+      <lottie-interactive path="../animations/right-arrow.json"
+                          interaction="click"
+                          reset="true"
+                          play-once="true">
+      </lottie-interactive>
+      <div class="title">
+        Click
+      </div>
+    </div>
+    <div class="animation-container">
+      <lottie-interactive path="../animations/right-arrow.json"
+                          interaction="hover"
+                          reset="true"
+                          play-once="true">
+      </lottie-interactive>
+      <div class="title">
+        Hover
+      </div>
+    </div>
+    <div class="animation-container">
+      <lottie-interactive path="../animations/svgenius-logo.json"
+                          loop="true"
+                          play-once="true"
+                          autoplay="true">
+      </lottie-interactive>
+      <div class="title">
+        Loop (overrides play-once)
+      </div>
+    </div>
+    <div class="animation-container">
+      <lottie-interactive path="../animations/sun-moon.json"
+                          interaction="morph"
+                          reset="true"
+                          play-once="true">
+      </lottie-interactive>
+      <div class="title">
+        Morph
+      </div>
+    </div>
+    <div class="animation-container">
+      <lottie-interactive path="../animations/sun-moon.json"
+                          interaction="switch"
+                          reset="true"
+                          play-once="true">
+      </lottie-interactive>
+      <div class="title">
+        Switch
+      </div>
+    </div>
+    <div class="animation-container">
+      <lottie-interactive path="../animations/right-arrow.json"
+                          interaction="play-once"
+                          play-once="true"
+                          autoplay="true">
+      </lottie-interactive>
+      <div class="title">
+        Play-once
+      </div>
+    </div>
+  </div>
+</div>
+
+<div>
+  <h1>
+    Attribute: 'autoplay=true'
+  </h1>
+  <div class="row">
+    <div class="animation-container">
+      <lottie-interactive path="../animations/right-arrow.json"
+                          autoplay="true">
+      </lottie-interactive>
+      <div class="title">
+        Autoplay
+      </div>
+    </div>
+    <div class="animation-container">
+      <lottie-interactive path="../animations/right-arrow.json"
+                          interaction="click"
+                          reset="true"
+                          autoplay="true">
+      </lottie-interactive>
+      <div class="title">
+        Click
+      </div>
+    </div>
+    <div class="animation-container">
+      <lottie-interactive path="../animations/right-arrow.json"
+                          interaction="hover"
+                          reset="true"
+                          autoplay="true">
+      </lottie-interactive>
+      <div class="title">
+        Hover
+      </div>
+    </div>
+    <div class="animation-container">
+      <lottie-interactive path="../animations/svgenius-logo.json"
+                          loop="true"
+                          autoplay="true"
+                          reset="true">
+      </lottie-interactive>
+      <div class="title">
+        Loop
+      </div>
+    </div>
+    <div class="animation-container">
+      <lottie-interactive path="../animations/sun-moon.json"
+                          interaction="morph"
+                          autoplay="true">
+      </lottie-interactive>
+      <div class="title">
+        Morph
+      </div>
+    </div>
+    <div class="animation-container">
+      <lottie-interactive path="../animations/sun-moon.json"
+                          interaction="switch"
+                          autoplay="true">
+      </lottie-interactive>
+      <div class="title">
+        Switch
+      </div>
+    </div>
+    <div class="animation-container">
+      <lottie-interactive path="../animations/right-arrow.json"
+                          interaction="play-once"
+                          autoplay="true">
+      </lottie-interactive>
+      <div class="title">
+        Play-once
+      </div>
+    </div>
+  </div>
+</div>
+
+<div>
+  <h1>
+    Attribute: 'reset=true'
+  </h1>
+
+  <div class="row">
+    <div class="animation-container">
+      <lottie-interactive path="../animations/svgenius-logo.json"
+                          autoplay="true"
+                          reset="true">
+      </lottie-interactive>
+      <div class="title">
+        Autoplay
+      </div>
+    </div>
+    <div class="animation-container">
+      <lottie-interactive path="../animations/svgenius-logo.json"
+                          interaction="click"
+                          reset="true"
+                          autoplay="true">
+      </lottie-interactive>
+      <div class="title">
+        Click
+      </div>
+    </div>
+    <div class="animation-container">
+      <lottie-interactive path="../animations/svgenius-logo.json"
+                          interaction="hover"
+                          reset="true"
+                          autoplay="true">
+      </lottie-interactive>
+      <div class="title">
+        Hover
+      </div>
+    </div>
+    <div class="animation-container">
+      <lottie-interactive path="../animations/svgenius-logo.json"
+                          loop="true"
+                          play-once="true"
+                          autoplay="true"
+                          reset="true">
+      </lottie-interactive>
+      <div class="title">
+        Loop
+      </div>
+    </div>
+    <div class="animation-container">
+      <lottie-interactive path="../animations/sun-moon.json"
+                          interaction="morph"
+                          reset="true">
+      </lottie-interactive>
+      <div class="title">
+        Morph
+      </div>
+    </div>
+    <div class="animation-container">
+      <lottie-interactive path="../animations/sun-moon.json"
+                          interaction="switch"
+                          reset="true">
+      </lottie-interactive>
+      <div class="title">
+        Switch
+      </div>
+    </div>
+    <div class="animation-container">
+      <lottie-interactive path="../animations/svgenius-logo.json"
+                          interaction="play-once"
+                          autoplay="true"
+                          reset="true">
+      </lottie-interactive>
+      <div class="title">
+        Play-once
+      </div>
+    </div>
+  </div>
+</div>
+
+<div>
+  <h1>
+    Attribute: 'reset=false'
+  </h1>
+  <div class="row">
+    <div class="animation-container">
+      <lottie-interactive path="../animations/svgenius-logo.json"
+                          autoplay="true"
+                          reset="false">
+      </lottie-interactive>
+      <div class="title">
+        Autoplay
+      </div>
+    </div>
+    <div class="animation-container">
+      <lottie-interactive path="../animations/svgenius-logo.json"
+                          interaction="click"
+                          reset="false"
+                          autoplay="true">
+      </lottie-interactive>
+      <div class="title">
+        Click
+      </div>
+    </div>
+    <div class="animation-container">
+      <lottie-interactive path="../animations/svgenius-logo.json"
+                          interaction="hover"
+                          reset="false"
+                          autoplay="true">
+      </lottie-interactive>
+      <div class="title">
+        Hover
+      </div>
+    </div>
+    <div class="animation-container">
+      <lottie-interactive path="../animations/svgenius-logo.json"
+                          loop="true"
+                          play-once="true"
+                          autoplay="true"
+                          reset="false">
+      </lottie-interactive>
+      <div class="title">
+        Loop
+      </div>
+    </div>
+    <div class="animation-container">
+      <lottie-interactive path="../animations/sun-moon.json"
+                          interaction="morph"
+                          reset="false">
+      </lottie-interactive>
+      <div class="title">
+        Morph
+      </div>
+    </div>
+    <div class="animation-container">
+      <lottie-interactive path="../animations/sun-moon.json"
+                          interaction="switch"
+                          reset="false">
+      </lottie-interactive>
+      <div class="title">
+        Switch
+      </div>
+    </div>
+    <div class="animation-container">
+      <lottie-interactive path="../animations/svgenius-logo.json"
+                          interaction="play-once"
+                          autoplay="true"
+                          reset="false">
+      </lottie-interactive>
+      <div class="title">
+        Play-once
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>

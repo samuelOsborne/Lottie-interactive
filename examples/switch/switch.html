@@ -3,12 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <title>Switch example</title>
-
   <script type="module" src="../../build/lottie-interactive.js"></script>
 </head>
+
 <body>
-<lottie-interactive path="../animations/credit-card-flash-fill-morph.json"
-                    interaction="switch"
-></lottie-interactive>
+<h1>
+  Interaction : 'Switch'
+</h1>
+<div class="center-content">
+  <lottie-interactive path="../animations/sun-moon.json"
+                      interaction="switch">
+  </lottie-interactive>
+</div>
 </body>
 </html>
+
+<style>
+  h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Verdana", serif;
+  }
+
+  .center-content {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+</style>

@@ -1,15 +1,14 @@
-import Lottie, { LottiePlayer } from 'Lottie-web'
-import { BaseInteraction } from "./interactions/base-interaction";
-import { Hover } from './interactions/hover'
-import { Click } from "./interactions/click";
+import Lottie, {LottiePlayer} from 'Lottie-web'
+import {BaseInteraction} from "./interactions/base-interaction";
+import {Hover} from './interactions/hover'
+import {Click} from "./interactions/click";
 import {Morph} from "./interactions/morph";
 import {Switch} from "./interactions/switch";
 import {PlayOnShow} from "./interactions/play-on-show";
+import {PlayOnce} from "./interactions/play-once";
 
 const styling = `
   :host {
-    // width: 100px;
-    // height: 100px;
     justify-content: center;
     align-items: center;
     display: inline-flex;
@@ -29,6 +28,7 @@ export class LottieInteractive extends HTMLElement {
     private loop: boolean = false;
     private autoplay: boolean = false;
     private reset: boolean = false;
+    private aspectRatio: string = 'xMidYMid slice';
 
     private interactions: Array<BaseInteraction> = new Array<BaseInteraction>();
     public readonly element: HTMLElement;
@@ -50,6 +50,7 @@ export class LottieInteractive extends HTMLElement {
         this.interactions.push(new Morph(this.lottie, this.animationContainer));
         this.interactions.push(new Switch(this.lottie, this.animationContainer));
         this.interactions.push(new PlayOnShow(this.lottie, this.animationContainer));
+        this.interactions.push(new PlayOnce(this.lottie, this.animationContainer));
 
         for (let i = 0; i < this.interactions.length; i++) {
             if (this.interactions[i].interactionType === this.interaction) {
@@ -76,6 +77,9 @@ export class LottieInteractive extends HTMLElement {
         if (this.getAttribute('autoplay') === 'true') {
             this.autoplay = true;
         }
+        if (this.hasAttribute('aspect-ratio')) {
+            this.aspectRatio = this.getAttribute('aspect-ratio');
+        }
     }
 
     private initShadowRoot() {
@@ -94,7 +98,10 @@ export class LottieInteractive extends HTMLElement {
             renderer: 'svg',
             loop: this.loop,
             autoplay: this.autoplay,
-            path: path
+            path: path,
+            rendererSettings: {
+                preserveAspectRatio: this.aspectRatio
+            }
         });
     }
 }
