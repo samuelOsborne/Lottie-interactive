@@ -1,8 +1,8 @@
 {
   "name": "lottie-interactive",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A custom element that adds interactions and quality of life changes to Lottie animations.",
-  "main": "src/index.ts",
+  "main": "build/lottie-interactive.js",
   "types": "./types/lottie.d.ts",
   "type": "module",
   "module": "src/index.ts",
