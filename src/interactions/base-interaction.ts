@@ -26,8 +26,7 @@ export abstract class BaseInteraction {
 
     protected playAnimation(): void {
         if (!this.playing &&
-            this.active &&
-            this.ready)
+            this.active)
         {
             if (this.playOnce && !this.played) {
                 this.playing = true;

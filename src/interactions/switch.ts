@@ -36,7 +36,7 @@ export class Switch extends BaseInteraction {
     }
 
     public playOnClick(): void {
-        if (this.active && this.ready)
+        if (this.active)
         {
             if (this.playOnce && !this.played) {
                 this.playSwitchAnimation();

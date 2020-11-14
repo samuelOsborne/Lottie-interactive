@@ -38,7 +38,7 @@ export class Morph extends BaseInteraction {
     }
 
     public playOnHover(): void {
-        if (this.active && this.ready) {
+        if (this.active) {
             if (this.playOnce && !this.played) {
                 this.playMorphedAnimation();
                 this.played = true;

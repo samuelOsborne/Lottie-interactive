@@ -1,4 +1,5 @@
 import Lottie, {LottiePlayer} from 'Lottie-web'
+
 import {BaseInteraction} from "./interactions/base-interaction";
 import {Hover} from './interactions/hover'
 import {Click} from "./interactions/click";
@@ -6,6 +7,8 @@ import {Morph} from "./interactions/morph";
 import {Switch} from "./interactions/switch";
 import {PlayOnShow} from "./interactions/play-on-show";
 import {PlayOnce} from "./interactions/play-once";
+
+import {Stroke} from "./modifiers/stroke";
 
 const styling = `
   :host {
@@ -21,7 +24,7 @@ const styling = `
 
 export class LottieInteractive extends HTMLElement {
     public path: string;
-    public lottie: LottiePlayer;
+    public lottie: LottiePlayer = null;
 
     private playOnce: boolean = false;
     private interaction: string;
@@ -29,18 +32,31 @@ export class LottieInteractive extends HTMLElement {
     private autoplay: boolean = false;
     private reset: boolean = false;
     private aspectRatio: string = 'xMidYMid slice';
+    private strokeWidth: string = null;
+    private data: any;
 
     private interactions: Array<BaseInteraction> = new Array<BaseInteraction>();
-    public readonly element: HTMLElement;
     private animationContainer: HTMLElement;
 
     constructor() {
         super();
 
-        this.element = this;
         this.initShadowRoot();
         this.checkAttributes();
-        this.loadAnimation(this.path, this.animationContainer);
+        this.loadIconData();
+    }
+
+    private async loadIconData() {
+        try {
+            const response = await fetch(this.path);
+            this.data = await response.json();
+        } catch (e) {
+            console.error("Lottie-interactive: Your JSON data could not be loaded.");
+            return ;
+        }
+        if (this.strokeWidth !== null)
+            Stroke.changeWidth(this.data, this.strokeWidth);
+        this.loadAnimation();
         this.initInteractions();
     }
 
@@ -80,6 +96,9 @@ export class LottieInteractive extends HTMLElement {
         if (this.hasAttribute('aspect-ratio')) {
             this.aspectRatio = this.getAttribute('aspect-ratio');
         }
+        if (this.hasAttribute('stroke')) {
+            this.strokeWidth = this.getAttribute('stroke');
+        }
     }
 
     private initShadowRoot() {
@@ -92,13 +111,13 @@ export class LottieInteractive extends HTMLElement {
         shadowRoot.appendChild(this.animationContainer);
     }
 
-    private loadAnimation(path: string, container: Element) {
+    private loadAnimation() {
         this.lottie = Lottie.loadAnimation({
-            container: container,
+            container: this.animationContainer,
             renderer: 'svg',
             loop: this.loop,
             autoplay: this.autoplay,
-            path: path,
+            animationData: this.data,
             rendererSettings: {
                 preserveAspectRatio: this.aspectRatio
             }
