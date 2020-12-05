@@ -2,20 +2,31 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Stroke width example</title>
+  <title>Stroke color example</title>
   <script type="module" src="../../bin/lottie-interactive.js"></script>
 </head>
 
 <body>
 <h1>
-  Stroke width attribute in element
+  Stroke color attribute in element
 </h1>
 <div style="text-align: center">
   <h2>
-    10px stroke width
+    Original
   </h2>
   <lottie-interactive path="../animations/rainbow.json"
                       s-width="10"
+                      loop
+                      stroke
+                      autoplay>
+  </lottie-interactive>
+
+  <h2>
+    Stroke color  #44feee
+  </h2>
+  <lottie-interactive path="../animations/rainbow.json"
+                      s-width="10"
+                      s-color="#44feee"
                       loop
                       autoplay>
   </lottie-interactive>

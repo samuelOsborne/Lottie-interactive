@@ -10,6 +10,12 @@ import {PlayOnce} from "./interactions/play-once";
 
 import {Stroke} from "./modifiers/stroke";
 
+
+const OBSERVED_ATTRIBUTES = [
+    "s-width",
+    "s-color"
+]
+
 const styling = `
   :host {
     justify-content: center;
@@ -33,6 +39,7 @@ export class LottieInteractive extends HTMLElement {
     private reset: boolean = false;
     private aspectRatio: string = 'xMidYMid slice';
     private strokeWidth: string = null;
+    private strokeColor: string = null;
     private data: any;
 
     private interactions: Array<BaseInteraction> = new Array<BaseInteraction>();
@@ -54,8 +61,7 @@ export class LottieInteractive extends HTMLElement {
             console.error("Lottie-interactive: Your JSON data could not be loaded.");
             return ;
         }
-        if (this.strokeWidth !== null)
-            Stroke.changeWidth(this.data, this.strokeWidth);
+        Stroke.changeStrokeWidthColor(this.data, this.strokeWidth, this.strokeColor);
         this.loadAnimation();
         this.initInteractions();
     }
@@ -96,8 +102,11 @@ export class LottieInteractive extends HTMLElement {
         if (this.hasAttribute('aspect-ratio')) {
             this.aspectRatio = this.getAttribute('aspect-ratio');
         }
-        if (this.hasAttribute('stroke')) {
-            this.strokeWidth = this.getAttribute('stroke');
+        if (this.hasAttribute('s-width')) {
+            this.strokeWidth = this.getAttribute('s-width');
+        }
+        if (this.hasAttribute('s-color')) {
+            this.strokeColor = this.getAttribute('s-color');
         }
     }
 
@@ -122,6 +131,31 @@ export class LottieInteractive extends HTMLElement {
                 preserveAspectRatio: this.aspectRatio
             }
         });
+    }
+
+    static get observedAttributes() {
+        return OBSERVED_ATTRIBUTES;
+    }
+
+    attributeChangedCallback(name: any, oldValue: any, newValue: any) {
+        switch (name) {
+            case 's-width':
+                this.strokeWidth = newValue;
+                Stroke.changeWidth(this.data, this.strokeWidth);
+                if (this.lottie != null) {
+                    this.lottie.destroy();
+                    this.loadAnimation();
+                }
+                break;
+            case 's-color':
+                this.strokeColor = newValue;
+                Stroke.changeColor(this.data, this.strokeColor);
+                if (this.lottie != null) {
+                    this.lottie.destroy();
+                    this.loadAnimation();
+                }
+                break;
+        }
     }
 }
 

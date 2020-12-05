@@ -73,12 +73,24 @@ Plays animation once
 
 #### Attributes
 
-The default state for attributes are false.
+The default state for attributes are false or null for stroke width and color.
 
 ##### loop
 Makes the animation loop
 ```HTML
 <lottie-interactive path="button.json" loop></lottie-interactive>
+```
+
+##### s-width
+Changes the stroke width of every stroke
+```HTML
+<lottie-interactive path="button.json" s-width="25"></lottie-interactive>
+```
+
+##### s-color
+Changes the stroke color of every stroke, must be a full hexadecimal color
+```HTML
+<lottie-interactive path="button.json" s-color="#ffffff"></lottie-interactive>
 ```
 
 ##### autoplay
