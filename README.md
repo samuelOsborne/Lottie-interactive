@@ -127,3 +127,15 @@ We recommend using this library with a module bundler such as **webpack**.
 - Changeable stroke width attribute
 - Changeable stroke color attribute
 - More interactions!
+
+### Youtube guides
+
+https://www.youtube.com/channel/UCPPNxV39UlVo3emNQSNNTug
+
+### Lottie animations
+
+https://svgenius.co
+
+https://lottiefiles.com/svgenius
+
+
