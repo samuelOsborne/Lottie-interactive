@@ -17,6 +17,6 @@ module.exports = {
   },
   output: {
     filename: 'lottie-interactive.js',
-    path: path.resolve(__dirname, './bin'),
+    path: path.resolve(__dirname, './dist'),
   },
 };
