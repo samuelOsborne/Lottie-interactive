@@ -12,6 +12,12 @@ Lottie-interactive is availabile through npm.
 npm install lottie-interactive
 ```
 
+Lottie-interactive is also available though unpkg.
+```HTML
+<script type="text/javscript" src="https://unpkg.com/lottie-interactive@1.1.1/dist/lottie-interactive.js"></script>
+```
+
+
 ## Usage
 From javascript module:
 ```javascript
