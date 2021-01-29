@@ -130,8 +130,10 @@ We recommend using this library with a module bundler such as **webpack**.
 
 ### Upcoming features
 
-- Changeable stroke width attribute
-- Changeable stroke color attribute
+- Color on hover
+- Animation zooming
+- Playback speed as attribute
+- Morph lock attribute
 - More interactions!
 
 ### Youtube guides

@@ -1,10 +1,9 @@
 {
   "name": "lottie-interactive",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A custom element that adds interactions and quality of life changes to Lottie animations.",
   "main": "dist/lottie-interactive.js",
   "types": "./types/lottie.d.ts",
-  "type": "module",
   "module": "dist/lottie-interactive.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

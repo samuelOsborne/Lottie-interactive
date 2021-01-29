@@ -54,11 +54,15 @@ export class LottieInteractive extends HTMLElement {
     }
 
     private async loadIconData() {
+        if (this.path === null) {
+            console.error("[Lottie-interactive] Path to JSON animation data is null!");
+            return;
+        }
         try {
             const response = await fetch(this.path);
             this.data = await response.json();
         } catch (e) {
-            console.error("Lottie-interactive: Your JSON data could not be loaded.");
+            console.error("[Lottie-interactive] Your JSON data could not be loaded.");
             return ;
         }
         Stroke.changeStrokeWidthColor(this.data, this.strokeWidth, this.strokeColor);
