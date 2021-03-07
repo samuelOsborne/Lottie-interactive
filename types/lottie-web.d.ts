@@ -41,6 +41,15 @@ declare namespace Lottie {
         addEventListener(eventName: string, callback: () => void): void;
 
         removeEventListener(eventName: string, callback: () => void): void;
+
+        /**
+         *  Freezes all playing animations or animations that will be loaded
+         */
+        freeze(): void;
+        /**
+         *  Unfreezes all animations
+         */
+        unfreeze(): void;
     }
 
     export interface LottieOptions {
@@ -92,6 +101,14 @@ declare namespace Lottie {
              */
             hideOnTransparent?: boolean;
             className?: string;
+            /**
+             *
+             */
+            viewBoxSize?: string,
+            /**
+             *
+             */
+            viewBoxOnly?: boolean,
         };
     }
 

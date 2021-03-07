@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Viewbox example</title>
+  <script type="module" src="../../dist/lottie-interactive.js"></script>
+</head>
+
+<body>
+
+<div style="text-align: center">
+  <lottie-interactive path="../animations/running-pigeon.json"
+                      speed="0.1"
+                      autoplay
+                      loop
+                      view-box="0 0 600 600">
+  </lottie-interactive>
+</div>
+<h1>
+  view-box: "0 0 600 600" (original)
+</h1>
+
+<div style="text-align: center">
+  <lottie-interactive path="../animations/running-pigeon.json"
+                      speed="0.1"
+                      autoplay
+                      loop
+                      view-box="0 0 300 300">
+  </lottie-interactive>
+</div>
+<h1>
+  view-box: "0 0 300 300"
+</h1>
+
+<div style="text-align: center">
+  <lottie-interactive path="../animations/running-pigeon.json"
+                      speed="0.1"
+                      autoplay
+                      loop
+                      view-box="300 300 300 300">
+  </lottie-interactive>
+</div>
+<h1>
+  view-box: "300 300 300 300"
+</h1>
+
+<div style="text-align: center">
+  <lottie-interactive path="../animations/running-pigeon.json"
+                      speed="0.1"
+                      autoplay
+                      loop
+                      view-box="0 300 300 300">
+  </lottie-interactive>
+</div>
+<h1>
+  view-box: "0 300 300 300"
+</h1>
+
+<div style="text-align: center">
+  <lottie-interactive path="../animations/running-pigeon.json"
+                      speed="0.1"
+                      autoplay
+                      loop
+                      view-box="150 150 300 300">
+  </lottie-interactive>
+</div>
+<h1>
+  view-box: "150 150 300 300"
+</h1>
+
+<div style="text-align: center">
+  <lottie-interactive path="../animations/running-pigeon.json"
+                      speed="0.1"
+                      autoplay
+                      loop
+                      view-box="-300 -300 1200 1200">
+  </lottie-interactive>
+</div>
+<h1>
+  view-box: "-300 -300 1200 1200"
+</h1>
+</body>
+</html>
+
+<style>
+  h1 {
+    text-align: center;
+    font-family: 'Verdana', serif;
+  }
+</style>
