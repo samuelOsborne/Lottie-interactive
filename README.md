@@ -1,6 +1,4 @@
-![alt Lottie-interactive](https://github.com/samuelOsborne/Lottie-interactive/blob/master/lottie-interactive.png?raw=true)
-
-# Lottie-interactive
+![alt Lottie-interactive](assets/lottie-interactive.png?raw=true)
 
 Lottie interactive is custom web element adding multiple types of interactivity to Lottie animations.
 
@@ -47,6 +45,12 @@ Plays animation when user clicks on animation container
 <lottie-interactive path="button.json" interaction="click"></lottie-interactive>
 ```
 
+##### freeze click
+Freezes animation when user clicks on animation container
+```HTML
+<lottie-interactive path="button.json" interaction="freeze-click" autoplay loop></lottie-interactive>
+```
+
 ##### hover
 Plays animation when user hovers on animation container
 ```HTML
@@ -54,13 +58,19 @@ Plays animation when user hovers on animation container
 ```
 
 ##### morph
-plays animation when user hovers on animation container, plays in reverse on 'mouseexit' event
+Plays animation when user hovers on animation container, plays in reverse on 'mouseexit' event
 ```HTML
 <lottie-interactive path="button.json" interaction="morph"></lottie-interactive>
 ```
 
+##### morph-lock
+Plays animation when user hovers on animation container. Locks animation at the end if user clicks. Plays in reverse on 'mouseexit' event.
+```HTML
+<lottie-interactive path="button.json" interaction="morph-lock"></lottie-interactive>
+```
+
 ##### switch
-plays animation when user clicks on animation container, plays again in reverse on second click
+Plays animation when user clicks on animation container, plays again in reverse on second click
 ```HTML
 <lottie-interactive path="button.json" interaction="switch"></lottie-interactive>
 ```

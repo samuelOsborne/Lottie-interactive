@@ -4,5 +4,7 @@ export enum InteractionType {
     Morph = "morph",
     PlayOnShow = "play-on-show",
     PlayOnce = "play-once",
-    Switch = "switch"
+    Switch = "switch",
+    MorphLock = "morph-lock",
+    FreezeClick = "freeze-click"
 }
