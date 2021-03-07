@@ -142,9 +142,8 @@ We recommend using this library with a module bundler such as **webpack**.
 
 - Color on hover
 - Animation zooming
-- Playback speed as attribute
-- Morph lock attribute
-- More interactions!
+- Padding modifier
+- Upgrade codebase to use Microsoft FAST
 
 ### Youtube guides
 
