@@ -2,6 +2,9 @@
 .vscode
 .idea
 .history
+.editorconfig
+.eslintignore
+.eslintrc
 
 # CI/CD
 .travis.yml
@@ -10,10 +13,15 @@
 src
 
 # Configs
+serve-examples.js
 jest.config.js
 rollup.config.js
 tsconfig.json
+webpack.config.js
 
 # Docs
 docs/
 examples/
+
+# assets
+assets/lottie-interactive.png
