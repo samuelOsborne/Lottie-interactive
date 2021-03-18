@@ -39,8 +39,6 @@ export abstract class BaseInteraction {
         if (this.lottiePlayer !== null) {
             this.lottiePlayer.addEventListener("complete", () => {
                 this.playing = false;
-                if (!this.active)
-                    return ;
                 if (this.reset === true) {
                     this.lottiePlayer.goToAndStop(0, true);
                 }

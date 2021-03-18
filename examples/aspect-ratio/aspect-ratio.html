@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Aspect-ratio example</title>
+  <script type="module" src="../../dist/lottie-interactive.js"></script>
+</head>
+
+<body>
+<div style="display: flex">
+  <div class="content-left">
+    <h1 style="text-align: center; font-family: 'Verdana', serif;">
+      Attribute: 'aspect-ratio'
+    </h1>
+    <div style="text-align: center">
+      <lottie-interactive path="../animations/svgenius-logo.json"
+                          loop
+                          autoplay
+                          view-box="0 0 500 300"
+                          aspect-ratio="xMaxYMax slice">
+      </lottie-interactive>
+      <lottie-interactive path="../animations/svgenius-logo.json"
+                          loop
+                          autoplay
+                          view-box="0 0 500 300"
+                          aspect-ratio="xMaxYMax ">
+      </lottie-interactive>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+
+<style>
+  .content-left {
+    float: left;
+    margin: auto;
+  }
+</style>
