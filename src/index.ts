@@ -14,8 +14,12 @@ import {Stroke} from "./modifiers/stroke";
 
 
 const OBSERVED_ATTRIBUTES = [
+    "loop",
     "s-width",
     "s-color",
+    "autoplay",
+    "reset",
+    "aspect-ratio",
     "path",
     "interaction",
     "speed",
@@ -45,6 +49,7 @@ export class LottieInteractive extends HTMLElement {
     private loop: boolean = false;
     private speed: number = 1;
     private autoplay: boolean = false;
+    private delay: number = 0;
     private reset: boolean = false;
     private aspectRatio: string = 'xMidYMid slice';
     private strokeWidth: string = null;
@@ -98,10 +103,10 @@ export class LottieInteractive extends HTMLElement {
         for (let i = 0; i < this.interactions.length; i++) {
             if (this.interactions[i].interactionType === this.interaction) {
                 this.interactions[i].active = true;
-                this.interactions[i].reset = this.reset;
-                this.interactions[i].playOnce = this.playOnce;
-                this.interactions[i].playing = this.autoplay;
             }
+            this.interactions[i].reset = this.reset;
+            this.interactions[i].playOnce = this.playOnce;
+            this.interactions[i].playing = this.autoplay;
         }
     }
 
@@ -120,6 +125,9 @@ export class LottieInteractive extends HTMLElement {
         }
         if (this.hasAttribute('autoplay')) {
             this.autoplay = true;
+        }
+        if (this.hasAttribute('delay')) {
+            this.delay = parseInt(this.getAttribute("delay"));
         }
         if (this.hasAttribute('aspect-ratio')) {
             this.aspectRatio = this.getAttribute('aspect-ratio');
@@ -149,22 +157,24 @@ export class LottieInteractive extends HTMLElement {
     }
 
     private loadAnimation() {
-        this.lottie = Lottie.loadAnimation({
-            container: this.animationContainer,
-            renderer: 'svg',
-            loop: this.loop,
-            autoplay: this.autoplay,
-            animationData: this.data,
-            rendererSettings: {
-                preserveAspectRatio: this.aspectRatio,
-                viewBoxSize: this.viewBox
-            }
-        });
-        this.lottie.setSpeed(this.speed);
-        this.lottie.addEventListener("DOMLoaded", ()=> {
-            this.initInteractions();
-            this.lottieLoading = false;
-        });
+        setTimeout(() => {
+            this.lottie = Lottie.loadAnimation({
+                container: this.animationContainer,
+                renderer: 'svg',
+                loop: this.loop,
+                autoplay: this.autoplay,
+                animationData: this.data,
+                rendererSettings: {
+                    preserveAspectRatio: this.aspectRatio,
+                    viewBoxSize: this.viewBox
+                }
+            });
+            this.lottie.setSpeed(this.speed);
+            this.lottie.addEventListener("DOMLoaded", ()=> {
+                this.initInteractions();
+                this.lottieLoading = false;
+            });
+        }, this.delay)
     }
 
     static get observedAttributes() {
@@ -188,6 +198,7 @@ export class LottieInteractive extends HTMLElement {
     attributeChangedCallback(name: any, oldValue: any, newValue: any) {
         switch (name) {
             case 's-width':
+            {
                 if (this.lottie != null) {
                     this.strokeWidth = newValue;
                     const children = this.animationContainer.children;
@@ -205,8 +216,10 @@ export class LottieInteractive extends HTMLElement {
                         }
                     }
                 }
-                break;
+            }
+            break;
             case 's-color':
+            {
                 if (this.lottie != null) {
                     this.strokeColor = newValue;
                     const children = this.animationContainer.children;
@@ -224,16 +237,20 @@ export class LottieInteractive extends HTMLElement {
                         }
                     }
                 }
-                break;
+            }
+            break;
             case 'path':
+            {
                 if (!this.lottieLoading) {
                     this.path = newValue;
                     this.deloadLottie();
                     this.checkAttributes();
                     this.loadIconData();
                 }
-                break;
+            }
+            break;
             case 'interaction':
+            {
                 this.interaction = newValue;
                 if (this.interactions === undefined)
                     return ;
@@ -246,13 +263,17 @@ export class LottieInteractive extends HTMLElement {
                         this.interactions[i].active = false;
                     }
                 }
-                break;
+            }
+            break;
             case 'speed':
+            {
                 this.speed = parseFloat(newValue);
                 if (this.lottie)
                     this.lottie.setSpeed(this.speed);
-                break;
+            }
+            break;
             case 'view-box':
+            {
                 if (!this.lottieLoading) {
                     this.viewBox = newValue;
                     const children = this.animationContainer.children;
@@ -266,7 +287,40 @@ export class LottieInteractive extends HTMLElement {
                         }
                     }
                 }
-                break;
+            }
+            break;
+            case 'loop':
+            {
+                newValue === null ? this.loop = false : this.loop = true;
+            }
+            break;
+            case 'autoplay':
+            {
+                newValue === null ? this.autoplay = false : this.autoplay = true;
+            }
+            break;
+            case 'reset':
+            {
+                newValue === null ? this.reset = false : this.reset = true;
+            }
+            break;
+            case 'aspect-ratio':
+            {
+                if (!this.lottieLoading) {
+                    this.aspectRatio = newValue;
+                    const children = this.animationContainer.children;
+
+                    /**
+                     * Our Lottie is already loaded, change the aspect-ratio of the rendered SVG element
+                     */
+                    for (let i = 0; i < children.length; i++) {
+                        if (children[i].hasAttribute("preserveAspectRatio")) {
+                            children[i].setAttribute("preserveAspectRatio", this.aspectRatio);
+                        }
+                    }
+                }
+            }
+            break;
         }
     }
 }

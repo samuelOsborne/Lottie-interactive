@@ -1,4 +1,4 @@
-![alt Lottie-interactive](assets/lottie-interactive.png?raw=true)
+![alt Lottie-interactive](https://github.com/samuelOsborne/Lottie-interactive/blob/master/assets/lottie-interactive.png?raw=true)
 
 Lottie interactive is custom web element adding multiple types of interactivity to Lottie animations.
 
@@ -114,6 +114,19 @@ Makes the animation play automatically on load
 ```HTML
 <lottie-interactive path="button.json" autoplay></lottie-interactive>
 ```
+
+##### speed
+Sets the speed of the animation
+```HTML
+<lottie-interactive path="button.json" speed="0.5"></lottie-interactive>
+```
+
+##### delay
+Delay the loading of the animation, defined in milliseconds
+```HTML
+<lottie-interactive path="button.json" delay="3000"></lottie-interactive>
+```
+
 
 ##### reset
 Resets the animation to the first frame after it has finished playing

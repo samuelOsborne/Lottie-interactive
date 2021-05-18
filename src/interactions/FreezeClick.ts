@@ -12,6 +12,13 @@ export class FreezeClick extends BaseInteraction {
 
     private initListener(): void {
         this.element.addEventListener('click', this.freezeAnimation.bind(this));
+
+        if (this.lottiePlayer !== null) {
+            this.lottiePlayer.addEventListener("complete", () => {
+                if (this.active)
+                    this.lottiePlayer.goToAndStop(0, true);
+            });
+        }
     }
 
     public removeListener(): void {
@@ -23,7 +30,6 @@ export class FreezeClick extends BaseInteraction {
     }
 
     private resumeAnimation(): void {
-        this.reset = true;
         if (!this.playing &&
             this.active)
         {
