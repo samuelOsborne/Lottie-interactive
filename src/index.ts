@@ -49,6 +49,7 @@ export class LottieInteractive extends HTMLElement {
     private loop: boolean = false;
     private speed: number = 1;
     private autoplay: boolean = false;
+    private delay: number = 0;
     private reset: boolean = false;
     private aspectRatio: string = 'xMidYMid slice';
     private strokeWidth: string = null;
@@ -125,6 +126,9 @@ export class LottieInteractive extends HTMLElement {
         if (this.hasAttribute('autoplay')) {
             this.autoplay = true;
         }
+        if (this.hasAttribute('delay')) {
+            this.delay = parseInt(this.getAttribute("delay"));
+        }
         if (this.hasAttribute('aspect-ratio')) {
             this.aspectRatio = this.getAttribute('aspect-ratio');
         }
@@ -153,22 +157,24 @@ export class LottieInteractive extends HTMLElement {
     }
 
     private loadAnimation() {
-        this.lottie = Lottie.loadAnimation({
-            container: this.animationContainer,
-            renderer: 'svg',
-            loop: this.loop,
-            autoplay: this.autoplay,
-            animationData: this.data,
-            rendererSettings: {
-                preserveAspectRatio: this.aspectRatio,
-                viewBoxSize: this.viewBox
-            }
-        });
-        this.lottie.setSpeed(this.speed);
-        this.lottie.addEventListener("DOMLoaded", ()=> {
-            this.initInteractions();
-            this.lottieLoading = false;
-        });
+        setTimeout(() => {
+            this.lottie = Lottie.loadAnimation({
+                container: this.animationContainer,
+                renderer: 'svg',
+                loop: this.loop,
+                autoplay: this.autoplay,
+                animationData: this.data,
+                rendererSettings: {
+                    preserveAspectRatio: this.aspectRatio,
+                    viewBoxSize: this.viewBox
+                }
+            });
+            this.lottie.setSpeed(this.speed);
+            this.lottie.addEventListener("DOMLoaded", ()=> {
+                this.initInteractions();
+                this.lottieLoading = false;
+            });
+        }, this.delay)
     }
 
     static get observedAttributes() {

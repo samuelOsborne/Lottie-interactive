@@ -11,6 +11,8 @@
 
 # Source code
 src
+node_modules
+examples
 
 # Configs
 serve-examples.js
