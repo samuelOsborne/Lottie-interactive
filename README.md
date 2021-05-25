@@ -28,6 +28,58 @@ Usage in markup:
 <lottie-interactive path="button.json" interaction="click"></lottie-interactive>
 ```
 
+## _Nuxt.js_
+
+- ```npm -i lottie-interactive```
+- Create a plugin for lottie-interactive in ```/plugins/lottie-interactive.client.js```:
+```javascript
+import Vue from 'vue'
+import LottieInteractive from 'lottie-interactive'
+
+Vue.use(LottieInteractive)
+```
+You can then use lottie-interactive inside of your templates:
+```html
+<template>
+    <lottie-interactive
+      path="/animations/svgenius-logo.json"
+      autoplay
+      loop
+      view-box="0 0 500 300"
+    />
+</template>
+```
+
+Remarks: Animation files (.json) can be accessed if put inside the ```/static``` directory. URLs to the animation
+can also be used.
+
+## _Next.js_
+
+- ```npm -i lottie-interactive```
+
+Then inside of your pages:
+```Javascript
+import React from "react";
+
+export default function Home() {
+  React.useEffect(() => {
+    import("lottie-interactive/dist/lottie-interactive.js");
+  });
+
+  return (
+    <div>
+          <lottie-interactive
+              path="/animations/svgenius-logo.json"
+              autoplay
+              loop
+          />
+    </div>
+  );
+}
+```
+
+Remarks: Animation files (.json) can be accessed if put inside the ```/public/``` directory. URLs to the animation
+can also be used.
 ## Examples
 
 ```shell
