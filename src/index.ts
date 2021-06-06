@@ -1,4 +1,5 @@
 import Lottie, {LottiePlayer} from 'Lottie-web'
+import {customElement, FASTElement, attr} from "@microsoft/fast-element";
 
 import {BaseInteraction} from "./interactions/base-interaction";
 import {Hover} from './interactions/hover'
@@ -13,18 +14,18 @@ import {FreezeClick} from "./interactions/FreezeClick";
 import {Stroke} from "./modifiers/stroke";
 
 
-const OBSERVED_ATTRIBUTES = [
-    "loop",
-    "s-width",
-    "s-color",
-    "autoplay",
-    "reset",
-    "aspect-ratio",
-    "path",
-    "interaction",
-    "speed",
-    "view-box"
-]
+export const enum OBSERVED_ATTRIBUTES {
+    LOOP = "loop",
+    SWIDTH = "s-width",
+    SCOLOR = "s-color",
+    AUTOPLAY = "autoplay",
+    RESET = "reset",
+    ASPECTRATIO = "aspect-ratio",
+    PATH = "path",
+    INTERACTION = "interaction",
+    SPEED = "speed",
+    VIEWBOX = "view-box"
+}
 
 const styling = `
   :host {
@@ -39,34 +40,229 @@ const styling = `
   }
 `;
 
-export class LottieInteractive extends HTMLElement {
-    public path: string;
-    public lottie: LottiePlayer = null;
-
-    private lottieLoading: boolean = false
-    private playOnce: boolean = false;
-    private interaction: string;
-    private loop: boolean = false;
-    private speed: number = 1;
-    private autoplay: boolean = false;
-    private delay: number = 0;
-    private reset: boolean = false;
-    private aspectRatio: string = 'xMidYMid slice';
-    private strokeWidth: string = null;
-    private strokeColor: string = null;
-    private viewBox: string = null;
-    private data: any;
-
-    private interactions: Array<BaseInteraction>;
-    private animationContainer: HTMLElement = undefined;
-
+@customElement('lottie-interactive')
+export class LottieInteractive extends FASTElement {
     constructor() {
         super();
-
         this.initShadowRoot();
-        this.checkAttributes();
+    }
+
+    connectedCallback() {
+        super.connectedCallback();
         this.loadIconData();
     }
+
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        this.deloadLottie();
+    }
+
+    /**
+     * Lottie player object returned from loadAnimation
+     * @public
+     */
+    public lottie: LottiePlayer = null;
+
+    /**
+     * If the Lottie animation is currently being loaded
+     * @private
+     */
+    private lottieLoading: boolean = false
+
+    /**
+     * Play the animation once
+     * @public
+     */
+    @attr({ mode: 'boolean' }) playOnce: boolean = false;
+
+    /**
+     * Path to the animation
+     * @public
+     */
+    @attr path: string;
+    pathChanged(oldValue: string, newValue: string) {
+        console.log("path changed | o : " + oldValue + " | n : " + newValue);
+        this.path = newValue;
+        if (!this.lottieLoading) {
+            //this.deloadLottie();
+            //this.checkAttributes();
+            //this.loadIconData();
+        }
+    }
+
+    /**
+     * Desired interaction to have with the animation
+     * @public
+     */
+    @attr interaction: string;
+    interactionChanged(oldValue: string, newValue: string) {
+        this.interaction = newValue;
+        if (this.interactions === undefined)
+            return ;
+        for (let i = 0; i < this.interactions.length; i++) {
+            if (this.interactions[i].interactionType === this.interaction) {
+                this.interactions[i].active = true;
+                this.interactions[i].reset = this.reset;
+                this.interactions[i].playOnce = this.playOnce;
+            } else {
+                this.interactions[i].active = false;
+            }
+        }
+    }
+
+    /**
+     * Loop the animation
+     * @public
+     */
+    @attr({ mode: 'boolean' }) loop: boolean = false;
+    loopChanged(oldValue: boolean, newValue: boolean) {
+        this.loop = newValue;
+    }
+
+    /**
+     * Speed of the animation
+     * @public
+     */
+    @attr speed: number = 1;
+    speedChanged(oldValue: string, newValue: string) {
+        this.speed = parseFloat(newValue);
+        if (this.lottie)
+            this.lottie.setSpeed(this.speed);
+    }
+
+    /**
+     * Autoplay the animation on load
+     * @public
+     */
+    @attr({ mode: 'boolean' }) autoplay: boolean = false;
+    autoplayChanged(oldValue: boolean, newValue: boolean) {
+        this.autoplay = newValue;
+    }
+
+    /**
+     * Delay the animation, defined in milliseconds
+     * @public
+     */
+    @attr({ mode: 'boolean' }) delay: number = 0;
+
+    /**
+     * Reset animation to the first frame when finished playing
+     * @publc
+     */
+    @attr({ mode: 'boolean' }) reset: boolean = false;
+    resetChanged(oldValue: boolean, newValue: boolean) {
+        this.reset = newValue;
+    }
+
+    /**
+     * Aspect-ratio of the animation
+     * @public
+     */
+    @attr aspectRatio: string = 'xMidYMid slice';
+    aspectRatioChanged(oldValue: string, newValue: string) {
+        if (!this.lottieLoading && this.animationContainer) {
+            this.aspectRatio = newValue;
+            const children = this.animationContainer.children;
+
+            /**
+             * Our Lottie is already loaded, change the aspect-ratio of the rendered SVG element
+             */
+            for (let i = 0; i < children.length; i++) {
+                if (children[i].hasAttribute("preserveAspectRatio")) {
+                    children[i].setAttribute("preserveAspectRatio", this.aspectRatio);
+                }
+            }
+        }
+    }
+
+    /**
+     * Stroke width of the animation
+     * @public
+     */
+    @attr strokeWidth: string = null;
+    strokeWidthChanged(oldValue: string, newValue: string) {
+        if (this.lottie != null && this.animationContainer) {
+            this.strokeWidth = newValue;
+            const children = this.animationContainer.children;
+
+            /**
+             * Our Lottie is already loaded, so all we need to is modify the stroke width of the rendered
+             * svg element
+             */
+            for (let i = 0; i < children.length; i++) {
+                const paths = Array.from(children[i].querySelectorAll("path"));
+                for (let j = 0; j < paths.length; j++) {
+                    if (paths[j].hasAttribute("stroke-width")) {
+                        paths[j].setAttribute("stroke-width", this.strokeWidth);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Stroke color of the animation
+     * @public
+     */
+    @attr strokeColor: string = null;
+    strokeColorChanged(oldValue: string, newValue: string) {
+        if (this.lottie != null && this.animationContainer) {
+            this.strokeColor = newValue;
+            const children = this.animationContainer.children;
+
+            /**
+             * Our Lottie is already loaded, so all we need to is modify the stroke color of the rendered
+             * svg element
+             */
+            for (let i = 0; i < children.length; i++) {
+                const paths = Array.from(children[i].querySelectorAll("path"));
+                for (let j = 0; j < paths.length; j++) {
+                    if (paths[j].hasAttribute("stroke")) {
+                        paths[j].setAttribute("stroke", this.strokeColor);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * The view-box of the animation
+     * @public
+     */
+    @attr viewBox: string = null;
+    viewBoxChanged(oldValue: string, newValue: string) {
+        if (!this.lottieLoading && this.animationContainer) {
+            this.viewBox = newValue;
+            const children = this.animationContainer.children;
+
+            /**
+             * Our Lottie is already loaded, change the viewbox of the rendered SVG element
+             */
+            for (let i = 0; i < children.length; i++) {
+                if (children[i].hasAttribute("viewBox")) {
+                    children[i].setAttribute("viewBox", this.viewBox);
+                }
+            }
+        }
+    }
+
+    /**
+     * The animation data
+     * @private
+     */
+    private data: any;
+
+    /**
+     * Array of all the possible interactions
+     * @private
+     */
+    private interactions: Array<BaseInteraction>;
+
+    /**
+     * The HTML div that contains our Lottie animation
+     * @private
+     */
+    private animationContainer: HTMLElement = undefined;
 
     private async loadIconData() {
         this.lottieLoading = true;
@@ -104,59 +300,26 @@ export class LottieInteractive extends HTMLElement {
             if (this.interactions[i].interactionType === this.interaction) {
                 this.interactions[i].active = true;
             }
+            this.interactions[i].fastElement = this;
             this.interactions[i].reset = this.reset;
             this.interactions[i].playOnce = this.playOnce;
             this.interactions[i].playing = this.autoplay;
         }
     }
 
-    private checkAttributes() {
-        this.path = this.getAttribute('path');
-        this.interaction = this.getAttribute('interaction');
-
-        if (this.hasAttribute('play-once')) {
-            this.playOnce = true;
-        }
-        if (this.hasAttribute('reset')) {
-            this.reset = true;
-        }
-        if (this.hasAttribute('loop')) {
-            this.loop = true;
-        }
-        if (this.hasAttribute('autoplay')) {
-            this.autoplay = true;
-        }
-        if (this.hasAttribute('delay')) {
-            this.delay = parseInt(this.getAttribute("delay"));
-        }
-        if (this.hasAttribute('aspect-ratio')) {
-            this.aspectRatio = this.getAttribute('aspect-ratio');
-        }
-        if (this.hasAttribute('s-width')) {
-            this.strokeWidth = this.getAttribute('s-width');
-        }
-        if (this.hasAttribute('s-color')) {
-            this.strokeColor = this.getAttribute('s-color');
-        }
-        if (this.hasAttribute('speed')) {
-            this.speed = parseFloat(this.getAttribute('speed'));
-        }
-        if (this.hasAttribute('view-box')) {
-            this.viewBox = this.getAttribute('view-box');
-        }
-    }
-
     private initShadowRoot() {
-        const shadowRoot = this.attachShadow({mode: 'open'});
         const style = document.createElement('style');
-
         style.innerHTML = styling;
-        shadowRoot.appendChild(style);
+        this.shadowRoot.appendChild(style);
         this.animationContainer = document.createElement('div');
-        shadowRoot.appendChild(this.animationContainer);
+        this.shadowRoot.appendChild(this.animationContainer);
     }
 
     private loadAnimation() {
+        console.log("LOOP: " + this.loop);
+        console.log("THIS AUTOPLAY: " + this.autoplay);
+        console.log("THIS SPEED: " + this.speed);
+
         setTimeout(() => {
             this.lottie = Lottie.loadAnimation({
                 container: this.animationContainer,
@@ -177,10 +340,6 @@ export class LottieInteractive extends HTMLElement {
         }, this.delay)
     }
 
-    static get observedAttributes() {
-        return OBSERVED_ATTRIBUTES;
-    }
-
     private deloadLottie() {
         if (this.lottie !== null && this.lottie !== undefined) {
             this.lottie.destroy();
@@ -194,135 +353,4 @@ export class LottieInteractive extends HTMLElement {
             delete this.interactions;
         }
     }
-
-    attributeChangedCallback(name: any, oldValue: any, newValue: any) {
-        switch (name) {
-            case 's-width':
-            {
-                if (this.lottie != null) {
-                    this.strokeWidth = newValue;
-                    const children = this.animationContainer.children;
-
-                    /**
-                     * Our Lottie is already loaded, so all we need to is modify the stroke width of the rendered
-                     * svg element
-                     */
-                    for (let i = 0; i < children.length; i++) {
-                        const paths = Array.from(children[i].querySelectorAll("path"));
-                        for (let j = 0; j < paths.length; j++) {
-                            if (paths[j].hasAttribute("stroke-width")) {
-                                paths[j].setAttribute("stroke-width", this.strokeWidth);
-                            }
-                        }
-                    }
-                }
-            }
-            break;
-            case 's-color':
-            {
-                if (this.lottie != null) {
-                    this.strokeColor = newValue;
-                    const children = this.animationContainer.children;
-
-                    /**
-                     * Our Lottie is already loaded, so all we need to is modify the stroke color of the rendered
-                     * svg element
-                     */
-                    for (let i = 0; i < children.length; i++) {
-                        const paths = Array.from(children[i].querySelectorAll("path"));
-                        for (let j = 0; j < paths.length; j++) {
-                            if (paths[j].hasAttribute("stroke")) {
-                                paths[j].setAttribute("stroke", this.strokeColor);
-                            }
-                        }
-                    }
-                }
-            }
-            break;
-            case 'path':
-            {
-                if (!this.lottieLoading) {
-                    this.path = newValue;
-                    this.deloadLottie();
-                    this.checkAttributes();
-                    this.loadIconData();
-                }
-            }
-            break;
-            case 'interaction':
-            {
-                this.interaction = newValue;
-                if (this.interactions === undefined)
-                    return ;
-                for (let i = 0; i < this.interactions.length; i++) {
-                    if (this.interactions[i].interactionType === this.interaction) {
-                        this.interactions[i].active = true;
-                        this.interactions[i].reset = this.reset;
-                        this.interactions[i].playOnce = this.playOnce;
-                    } else {
-                        this.interactions[i].active = false;
-                    }
-                }
-            }
-            break;
-            case 'speed':
-            {
-                this.speed = parseFloat(newValue);
-                if (this.lottie)
-                    this.lottie.setSpeed(this.speed);
-            }
-            break;
-            case 'view-box':
-            {
-                if (!this.lottieLoading) {
-                    this.viewBox = newValue;
-                    const children = this.animationContainer.children;
-
-                    /**
-                     * Our Lottie is already loaded, change the viewbox of the rendered SVG element
-                     */
-                    for (let i = 0; i < children.length; i++) {
-                        if (children[i].hasAttribute("viewBox")) {
-                            children[i].setAttribute("viewBox", this.viewBox);
-                        }
-                    }
-                }
-            }
-            break;
-            case 'loop':
-            {
-                newValue === null ? this.loop = false : this.loop = true;
-            }
-            break;
-            case 'autoplay':
-            {
-                newValue === null ? this.autoplay = false : this.autoplay = true;
-            }
-            break;
-            case 'reset':
-            {
-                newValue === null ? this.reset = false : this.reset = true;
-            }
-            break;
-            case 'aspect-ratio':
-            {
-                if (!this.lottieLoading) {
-                    this.aspectRatio = newValue;
-                    const children = this.animationContainer.children;
-
-                    /**
-                     * Our Lottie is already loaded, change the aspect-ratio of the rendered SVG element
-                     */
-                    for (let i = 0; i < children.length; i++) {
-                        if (children[i].hasAttribute("preserveAspectRatio")) {
-                            children[i].setAttribute("preserveAspectRatio", this.aspectRatio);
-                        }
-                    }
-                }
-            }
-            break;
-        }
-    }
 }
-
-customElements.define('lottie-interactive', LottieInteractive);
