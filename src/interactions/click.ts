@@ -1,20 +1,24 @@
 import {LottiePlayer} from "Lottie-web";
 import {BaseInteraction} from "./base-interaction";
 import {InteractionType} from "./interaction-type";
+import {FASTElement} from "@microsoft/fast-element";
 
 export class Click extends BaseInteraction {
-    constructor(player: LottiePlayer, element: HTMLElement) {
-        super(player, element);
+    private readonly clickHandler: any;
+
+    constructor(player: LottiePlayer, element: HTMLElement, fastElement: FASTElement) {
+        super(player, element, fastElement);
 
         this.interactionType = InteractionType.Click;
+        this.clickHandler = this.playAnimation.bind(this);
         this.initListener();
     }
 
     private initListener(): void {
-        this.element.addEventListener('click', this.playAnimation.bind(this));
+        this.animationContainer.addEventListener('click', this.clickHandler);
     }
 
     public removeListener(): void {
-        this.element.removeEventListener('click', this.playAnimation.bind(this));
+        this.animationContainer.removeEventListener('click', this.clickHandler);
     }
 }

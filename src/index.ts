@@ -12,20 +12,7 @@ import {PlayOnce} from "./interactions/play-once";
 import {FreezeClick} from "./interactions/FreezeClick";
 
 import {Stroke} from "./modifiers/stroke";
-
-
-export const enum OBSERVED_ATTRIBUTES {
-    LOOP = "loop",
-    SWIDTH = "s-width",
-    SCOLOR = "s-color",
-    AUTOPLAY = "autoplay",
-    RESET = "reset",
-    ASPECTRATIO = "aspect-ratio",
-    PATH = "path",
-    INTERACTION = "interaction",
-    SPEED = "speed",
-    VIEWBOX = "view-box"
-}
+import {InteractionType} from "./interactions/interaction-type";
 
 const styling = `
   :host {
@@ -73,20 +60,20 @@ export class LottieInteractive extends FASTElement {
      * Play the animation once
      * @public
      */
-    @attr({ mode: 'boolean' }) playOnce: boolean = false;
-
+    @attr({ mode: 'boolean', attribute: 'play-once' }) playOnce: boolean = false;
+    playOnceChanged(oldValue: boolean, newValue: boolean) {
+        this.playOnce = newValue;
+    }
     /**
      * Path to the animation
      * @public
      */
     @attr path: string;
     pathChanged(oldValue: string, newValue: string) {
-        console.log("path changed | o : " + oldValue + " | n : " + newValue);
-        this.path = newValue;
-        if (!this.lottieLoading) {
-            //this.deloadLottie();
-            //this.checkAttributes();
-            //this.loadIconData();
+        if (!this.lottieLoading && oldValue) {
+            this.path = newValue;
+            this.deloadLottie();
+            this.loadIconData();
         }
     }
 
@@ -97,17 +84,7 @@ export class LottieInteractive extends FASTElement {
     @attr interaction: string;
     interactionChanged(oldValue: string, newValue: string) {
         this.interaction = newValue;
-        if (this.interactions === undefined)
-            return ;
-        for (let i = 0; i < this.interactions.length; i++) {
-            if (this.interactions[i].interactionType === this.interaction) {
-                this.interactions[i].active = true;
-                this.interactions[i].reset = this.reset;
-                this.interactions[i].playOnce = this.playOnce;
-            } else {
-                this.interactions[i].active = false;
-            }
-        }
+        this.initInteraction();
     }
 
     /**
@@ -143,7 +120,11 @@ export class LottieInteractive extends FASTElement {
      * Delay the animation, defined in milliseconds
      * @public
      */
-    @attr({ mode: 'boolean' }) delay: number = 0;
+    @attr delay: number = 0;
+    delayChanged(oldValue: number, newValue: number) {
+        this.delay = newValue;
+    }
+
 
     /**
      * Reset animation to the first frame when finished playing
@@ -158,7 +139,7 @@ export class LottieInteractive extends FASTElement {
      * Aspect-ratio of the animation
      * @public
      */
-    @attr aspectRatio: string = 'xMidYMid slice';
+    @attr({ attribute: 'aspect-ratio' }) aspectRatio: string = 'xMidYMid slice';
     aspectRatioChanged(oldValue: string, newValue: string) {
         if (!this.lottieLoading && this.animationContainer) {
             this.aspectRatio = newValue;
@@ -179,7 +160,7 @@ export class LottieInteractive extends FASTElement {
      * Stroke width of the animation
      * @public
      */
-    @attr strokeWidth: string = null;
+    @attr({attribute: 's-width'}) strokeWidth: string = null;
     strokeWidthChanged(oldValue: string, newValue: string) {
         if (this.lottie != null && this.animationContainer) {
             this.strokeWidth = newValue;
@@ -204,7 +185,7 @@ export class LottieInteractive extends FASTElement {
      * Stroke color of the animation
      * @public
      */
-    @attr strokeColor: string = null;
+    @attr({attribute: 's-color' }) strokeColor: string = null;
     strokeColorChanged(oldValue: string, newValue: string) {
         if (this.lottie != null && this.animationContainer) {
             this.strokeColor = newValue;
@@ -229,7 +210,7 @@ export class LottieInteractive extends FASTElement {
      * The view-box of the animation
      * @public
      */
-    @attr viewBox: string = null;
+    @attr({attribute: 'view-box' }) viewBox: string = null;
     viewBoxChanged(oldValue: string, newValue: string) {
         if (!this.lottieLoading && this.animationContainer) {
             this.viewBox = newValue;
@@ -256,7 +237,8 @@ export class LottieInteractive extends FASTElement {
      * Array of all the possible interactions
      * @private
      */
-    private interactions: Array<BaseInteraction>;
+    //private interactions: Array<BaseInteraction>;
+    private currentInteraction: BaseInteraction;
 
     /**
      * The HTML div that contains our Lottie animation
@@ -264,6 +246,10 @@ export class LottieInteractive extends FASTElement {
      */
     private animationContainer: HTMLElement = undefined;
 
+    /**
+     * Fetches the animation data, on success it will then load the animation
+     * @private
+     */
     private async loadIconData() {
         this.lottieLoading = true;
         if (this.path === null) {
@@ -285,28 +271,52 @@ export class LottieInteractive extends FASTElement {
         this.loadAnimation();
     }
 
-    private initInteractions() {
-        this.interactions = new Array<BaseInteraction>();
-        this.interactions.push(new Hover(this.lottie, this.animationContainer));
-        this.interactions.push(new Click(this.lottie, this.animationContainer));
-        this.interactions.push(new Morph(this.lottie, this.animationContainer));
-        this.interactions.push(new FreezeClick(this.lottie, this.animationContainer));
-        this.interactions.push(new MorphLock(this.lottie, this.animationContainer));
-        this.interactions.push(new Switch(this.lottie, this.animationContainer));
-        this.interactions.push(new PlayOnShow(this.lottie, this.animationContainer));
-        this.interactions.push(new PlayOnce(this.lottie, this.animationContainer));
-
-        for (let i = 0; i < this.interactions.length; i++) {
-            if (this.interactions[i].interactionType === this.interaction) {
-                this.interactions[i].active = true;
-            }
-            this.interactions[i].fastElement = this;
-            this.interactions[i].reset = this.reset;
-            this.interactions[i].playOnce = this.playOnce;
-            this.interactions[i].playing = this.autoplay;
+    /**
+     * Create the correct interaction with the Lottie animation depending on the 'interaction' attribute value
+     * @private
+     */
+    private initInteraction() {
+        if (!this.lottie || !this.interaction)
+            return ;
+        if (this.currentInteraction) {
+            this.currentInteraction.removeListener();
+            delete(this.currentInteraction);
         }
+        switch (this.interaction) {
+            case InteractionType.Hover:
+                this.currentInteraction = new Hover(this.lottie, this.animationContainer, this);
+                break;
+            case InteractionType.Click:
+                this.currentInteraction = new Click(this.lottie, this.animationContainer, this);
+                break;
+            case InteractionType.Morph:
+                this.currentInteraction = new Morph(this.lottie, this.animationContainer, this);
+                break;
+            case InteractionType.FreezeClick:
+                this.currentInteraction = new FreezeClick(this.lottie, this.animationContainer, this);
+                break;
+            case InteractionType.MorphLock:
+                this.currentInteraction = new MorphLock(this.lottie, this.animationContainer, this);
+                break;
+            case InteractionType.Switch:
+                this.currentInteraction = new Switch(this.lottie, this.animationContainer, this);
+                break;
+            case InteractionType.PlayOnShow:
+                this.currentInteraction = new PlayOnShow(this.lottie, this.animationContainer, this);
+                break;
+            case InteractionType.PlayOnce:
+                this.currentInteraction = new PlayOnce(this.lottie, this.animationContainer, this);
+                break;
+        }
+        this.currentInteraction.reset = this.reset;
+        this.currentInteraction.playOnce = this.playOnce;
+        this.currentInteraction.playing = this.autoplay;
     }
 
+    /**
+     * Apply styling to the animation container
+     * @private
+     */
     private initShadowRoot() {
         const style = document.createElement('style');
         style.innerHTML = styling;
@@ -315,11 +325,11 @@ export class LottieInteractive extends FASTElement {
         this.shadowRoot.appendChild(this.animationContainer);
     }
 
+    /**
+     * Load the Lottie animation via lottie-web
+     * @private
+     */
     private loadAnimation() {
-        console.log("LOOP: " + this.loop);
-        console.log("THIS AUTOPLAY: " + this.autoplay);
-        console.log("THIS SPEED: " + this.speed);
-
         setTimeout(() => {
             this.lottie = Lottie.loadAnimation({
                 container: this.animationContainer,
@@ -334,23 +344,23 @@ export class LottieInteractive extends FASTElement {
             });
             this.lottie.setSpeed(this.speed);
             this.lottie.addEventListener("DOMLoaded", ()=> {
-                this.initInteractions();
+                this.initInteraction();
                 this.lottieLoading = false;
             });
         }, this.delay)
     }
 
+    /**
+     * Destroys the Lottie animation
+     * @private
+     */
     private deloadLottie() {
-        if (this.lottie !== null && this.lottie !== undefined) {
+        if (this.lottie) {
             this.lottie.destroy();
             this.lottie = undefined;
             this.shadowRoot.lastElementChild.innerHTML = "";
-            for (let i = 0; i < this.interactions.length; i++) {
-                this.interactions[i].removeListener();
-                this.interactions[i].active = false;
-                delete this.interactions[i];
-            }
-            delete this.interactions;
+            this.currentInteraction.removeListener();
+            delete this.currentInteraction;
         }
     }
 }
