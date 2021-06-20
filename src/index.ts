@@ -240,10 +240,9 @@ export class LottieInteractive extends FASTElement {
     private data: any;
 
     /**
-     * Array of all the possible interactions
+     * The currently used interaction on the animation
      * @private
      */
-    //private interactions: Array<BaseInteraction>;
     private currentInteraction: BaseInteraction;
 
     /**

@@ -31,13 +31,12 @@ export class Morph extends BaseInteraction {
             this.direction = 1;
             this.playing = true;
             this.lottiePlayer.setDirection(this.direction);
-            this.lottiePlayer.goToAndPlay(0, true);
         } else if (this.direction === 1) {
             this.direction = -1;
             this.playing = true;
             this.lottiePlayer.setDirection(this.direction);
-            this.lottiePlayer.play();
         }
+        this.lottiePlayer.play();
     }
 
     public playOnHover(): void {
