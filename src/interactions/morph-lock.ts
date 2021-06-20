@@ -1,28 +1,33 @@
 import {LottiePlayer} from "Lottie-web";
 import {BaseInteraction} from "./base-interaction";
 import {InteractionType} from "./interaction-type";
+import {FASTElement} from "@microsoft/fast-element";
 
 export class MorphLock extends BaseInteraction {
     private direction: number = -1;
     private locked: boolean = false;
+    private readonly morphLockHandler: any;
+    private readonly morphLockAnimationHandler: any;
 
-    constructor(player: LottiePlayer, element: HTMLElement) {
-        super(player, element);
+    constructor(player: LottiePlayer, element: HTMLElement, fastElement: FASTElement) {
+        super(player, element, fastElement);
 
         this.interactionType = InteractionType.MorphLock;
+        this.morphLockHandler = this.playOnHover.bind(this);
+        this.morphLockAnimationHandler = this.lockAnimation.bind(this);
         this.initListener();
     }
 
     private initListener(): void {
-        this.element.addEventListener('mouseenter', this.playOnHover.bind(this));
-        this.element.addEventListener('mouseleave', this.playOnHover.bind(this));
-        this.element.addEventListener('click', this.lockAnimation.bind(this));
+        this.animationContainer.addEventListener('mouseenter', this.morphLockHandler);
+        this.animationContainer.addEventListener('mouseleave', this.morphLockHandler);
+        this.animationContainer.addEventListener('click', this.morphLockAnimationHandler);
     }
 
     public removeListener(): void {
-        this.element.removeEventListener('mouseenter', this.playOnHover.bind(this));
-        this.element.removeEventListener('mouseleave', this.playOnHover.bind(this));
-        this.element.removeEventListener('click', this.lockAnimation.bind(this));
+        this.animationContainer.removeEventListener('mouseenter', this.morphLockHandler);
+        this.animationContainer.removeEventListener('mouseleave', this.morphLockHandler);
+        this.animationContainer.removeEventListener('click', this.morphLockAnimationHandler);
     }
 
     private lockAnimation(): void {
@@ -45,7 +50,7 @@ export class MorphLock extends BaseInteraction {
     }
 
     public playOnHover(): void {
-        if (this.active && !this.locked) {
+        if (!this.locked) {
             if (this.playOnce && !this.played) {
                 this.playMorphedAnimation();
                 this.played = true;

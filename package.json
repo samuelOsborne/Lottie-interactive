@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/samuelOsborne/Lottie-interactive#readme",
   "dependencies": {
+    "@microsoft/fast-element": "^1.4.0",
     "lottie-web": "^5.7.8"
   },
   "devDependencies": {

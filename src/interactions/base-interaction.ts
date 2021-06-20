@@ -1,30 +1,33 @@
 import { LottiePlayer } from "Lottie-web";
 import { InteractionType } from "./interaction-type";
+import {FASTElement} from "@microsoft/fast-element";
 
 export abstract class BaseInteraction {
     protected readonly lottiePlayer: LottiePlayer
     protected played: boolean = false;
     protected ready: boolean = false;
-    protected element: HTMLElement;
+    protected animationContainer: HTMLElement;
+    protected fastElement: FASTElement;
     public interactionType: InteractionType;
     public playing: boolean = false;
-    public active: boolean = false;
     public reset: boolean = false;
     public playOnce: boolean = false;
 
     abstract removeListener(): void;
 
-    protected constructor(player: LottiePlayer, element: HTMLElement) {
+    protected constructor(player: LottiePlayer,
+                          animationContainer: HTMLElement,
+                          fastElement: FASTElement) {
         this.lottiePlayer = player;
-        this.element = element;
+        this.animationContainer = animationContainer;
+        this.fastElement = fastElement;
         this.registerCompleteListener();
         this.registerReadyListener();
         this.registerDestroyListener();
     }
 
     protected playAnimation(): void {
-        if (!this.playing &&
-            this.active)
+        if (!this.playing)
         {
             if (this.playOnce && this.played)
                 return ;
@@ -38,8 +41,9 @@ export abstract class BaseInteraction {
     private registerCompleteListener(): void {
         if (this.lottiePlayer !== null) {
             this.lottiePlayer.addEventListener("complete", () => {
+                this.fastElement.$emit("complete");
                 this.playing = false;
-                if (this.reset === true) {
+                if (this.reset) {
                     this.lottiePlayer.goToAndStop(0, true);
                 }
             });
@@ -49,6 +53,7 @@ export abstract class BaseInteraction {
     private registerReadyListener(): void {
         if (this.lottiePlayer !== null) {
             this.lottiePlayer.addEventListener("data_ready", () => {
+                this.fastElement.$emit("data_ready");
                 this.ready = true;
             });
         }

@@ -1,20 +1,25 @@
 import {LottiePlayer} from "Lottie-web";
 import {BaseInteraction} from "./base-interaction";
 import {InteractionType} from "./interaction-type";
+import {FASTElement} from "@microsoft/fast-element";
 
 export class Hover extends BaseInteraction {
-    constructor(player: LottiePlayer, element: HTMLElement) {
-        super(player, element);
+    private readonly hoverHandler: any;
+
+    constructor(player: LottiePlayer, element: HTMLElement, fastElement: FASTElement) {
+        super(player, element, fastElement);
 
         this.interactionType = InteractionType.Hover;
+        this.hoverHandler = this.playAnimation.bind(this);
         this.initListener();
     }
 
     private initListener(): void {
-        this.element.addEventListener('mouseenter', this.playAnimation.bind(this));
+        this.animationContainer.addEventListener('mouseenter', this.hoverHandler);
     }
 
     public removeListener(): void {
-        this.element.removeEventListener('mouseenter', this.playAnimation.bind(this));
+        console.log("removing hover listener")
+        this.animationContainer.removeEventListener('mouseenter', this.hoverHandler);
     }
 }

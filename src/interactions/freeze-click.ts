@@ -1,28 +1,35 @@
 import {LottiePlayer} from "Lottie-web";
 import {BaseInteraction} from "./base-interaction";
 import {InteractionType} from "./interaction-type";
+import {FASTElement} from "@microsoft/fast-element";
 
 export class FreezeClick extends BaseInteraction {
-    constructor(player: LottiePlayer, element: HTMLElement) {
-        super(player, element);
+    private readonly freezeClickHandler: any;
+
+    constructor(player: LottiePlayer, element: HTMLElement, fastElement: FASTElement) {
+        super(player, element, fastElement);
 
         this.interactionType = InteractionType.FreezeClick;
+        this.freezeClickHandler = this.freezeClick.bind(this);
         this.initListener();
     }
 
-    private initListener(): void {
-        this.element.addEventListener('click', this.freezeAnimation.bind(this));
-
+    private freezeClick(): void {
+        this.freezeAnimation();
         if (this.lottiePlayer !== null) {
             this.lottiePlayer.addEventListener("complete", () => {
-                if (this.active)
-                    this.lottiePlayer.goToAndStop(0, true);
+                this.lottiePlayer.goToAndStop(0, true);
             });
         }
     }
 
+
+    private initListener(): void {
+        this.animationContainer.addEventListener('click', this.freezeClickHandler);
+    }
+
     public removeListener(): void {
-        this.element.removeEventListener('click', this.freezeAnimation.bind(this));
+        this.animationContainer.removeEventListener('click', this.freezeClickHandler);
     }
 
     private freezeAnimation(): void {
@@ -30,8 +37,7 @@ export class FreezeClick extends BaseInteraction {
     }
 
     private resumeAnimation(): void {
-        if (!this.playing &&
-            this.active)
+        if (!this.playing)
         {
             this.lottiePlayer.play();
             this.playing = true;
@@ -39,8 +45,7 @@ export class FreezeClick extends BaseInteraction {
     }
 
     private pauseAnimation(): void {
-        if (this.playing &&
-            this.active)
+        if (this.playing)
         {
             this.lottiePlayer.pause();
             this.playing = false;
