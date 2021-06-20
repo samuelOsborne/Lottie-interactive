@@ -9,7 +9,13 @@ import {MorphLock} from "./interactions/morph-lock";
 import {Switch} from "./interactions/switch";
 import {PlayOnShow} from "./interactions/play-on-show";
 import {PlayOnce} from "./interactions/play-once";
-import {FreezeClick} from "./interactions/FreezeClick";
+import {FreezeClick} from "./interactions/freeze-click";
+import {ShowAndClick} from "./interactions/show-and-click";
+import {ShowAndHover} from "./interactions/show-and-hover";
+import {ShowAndMorph} from "./interactions/show-and-morph";
+import {ShowAndMorphLock} from "./interactions/show-and-morph-lock";
+import {ShowAndFreezeClick} from "./interactions/show-and-freeze-click";
+import {ShowAndSwitch} from "./interactions/show-and-switch";
 
 import {Stroke} from "./modifiers/stroke";
 import {InteractionType} from "./interactions/interaction-type";
@@ -65,7 +71,7 @@ export class LottieInteractive extends FASTElement {
         this.playOnce = newValue;
     }
     /**
-     * Path to the animation
+     * Path or URL to the animation
      * @public
      */
     @attr path: string;
@@ -303,6 +309,24 @@ export class LottieInteractive extends FASTElement {
                 break;
             case InteractionType.PlayOnShow:
                 this.currentInteraction = new PlayOnShow(this.lottie, this.animationContainer, this);
+                break;
+            case InteractionType.ShowAndClick:
+                this.currentInteraction = new ShowAndClick(this.lottie, this.animationContainer, this);
+                break;
+            case InteractionType.ShowAndHover:
+                this.currentInteraction = new ShowAndHover(this.lottie, this.animationContainer, this);
+                break;
+            case InteractionType.ShowAndMorph:
+                this.currentInteraction = new ShowAndMorph(this.lottie, this.animationContainer, this);
+                break;
+            case InteractionType.ShowAndMorphLock:
+                this.currentInteraction = new ShowAndMorphLock(this.lottie, this.animationContainer, this);
+                break;
+            case InteractionType.ShowAndFreezeClick:
+                this.currentInteraction = new ShowAndFreezeClick(this.lottie, this.animationContainer, this);
+                break;
+            case InteractionType.ShowAndSwitch:
+                this.currentInteraction = new ShowAndSwitch(this.lottie, this.animationContainer, this);
                 break;
             case InteractionType.PlayOnce:
                 this.currentInteraction = new PlayOnce(this.lottie, this.animationContainer, this);
