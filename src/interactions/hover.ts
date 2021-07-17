@@ -19,7 +19,6 @@ export class Hover extends BaseInteraction {
     }
 
     public removeListener(): void {
-        console.log("removing hover listener")
         this.animationContainer.removeEventListener('mouseenter', this.hoverHandler);
     }
 }
