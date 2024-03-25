@@ -257,7 +257,7 @@ export class LottieInteractive extends FASTElement {
      */
     private async loadIconData() {
         this.lottieLoading = true;
-        if (this.path === null) {
+        if (!this.path) {
             this.lottieLoading = false;
             this.lottie = null;
             return;
